@@ -20,7 +20,7 @@ public class Bus extends Vehicle
         speed = maxSpeed;
         // because the Bus graphic is tall, offset it up (this may result in some collision check issues)
         yOffset = 15;
-        followingDistance = 10; // Buses need more following distance due to size
+        followingDistance = 50; // Buses need more following distance due to size
     }
 
     /**

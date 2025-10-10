@@ -11,13 +11,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author Jordan Cohen
  * @version 2023
  */
-public class Pedestrian extends SuperSmoothMover
+public abstract class Pedestrian extends SuperSmoothMover
 {
-    private double speed;
-    private double maxSpeed;
-    private int direction; // direction is always -1 or 1, for moving down or up, respectively
-    private boolean awake;
-    private boolean isPicked = false;
+    protected double speed;
+    protected double maxSpeed;
+    protected int direction; // direction is always -1 or 1, for moving down or up, respectively
+    protected boolean awake;
+    protected boolean isPicked = false;
     public Pedestrian(int direction) {
         // choose a random speed
         maxSpeed = Math.random() * 2 + 1;

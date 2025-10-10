@@ -14,7 +14,9 @@ public class Ambulance extends Vehicle
     
     public Ambulance(VehicleSpawner origin){
         super(origin); // call the superclass' constructor first
-
+        GreenfootImage img = new GreenfootImage("ambulance2.png");
+        img.scale(100, 100);  // change to desired width and height
+        setImage(img);
         maxSpeed = 2.5;
         speed = maxSpeed;
         followingDistance = 8; // Ambulances need more space due to urgency
