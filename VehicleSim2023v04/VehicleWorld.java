@@ -71,7 +71,8 @@ public class VehicleWorld extends World
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World
-        background = new GreenfootImage ("background01.png");
+        background = new GreenfootImage ("grassBackground.png");
+        background.scale(1024, 800);
         setBackground (background);
     
         // Set critical variables - will affect lane drawing
@@ -119,13 +120,24 @@ public class VehicleWorld extends World
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber (30) == 0){
-            int xSpawnLocation = Greenfoot.getRandomNumber (getWidth()-100) + 100; // random between 99 and 699, so not near edges
-            boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0 ? true : false;
+        if (Greenfoot.getRandomNumber(30) == 0){
+            int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
+            boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0;
+            
+            int pedestrianType = Greenfoot.getRandomNumber(2); // 0 = Monkey, 1 = Deer
+        
             if (spawnAtTop){
-                addObject (new Monkey(1), xSpawnLocation, TOP_SPAWN);
+                if (pedestrianType == 0) {
+                    addObject(new Monkey(1), xSpawnLocation, TOP_SPAWN);
+                } else {
+                    addObject(new Deer(1), xSpawnLocation, TOP_SPAWN);
+                }
             } else {
-                addObject (new Monkey(-1), xSpawnLocation, BOTTOM_SPAWN);
+                if (pedestrianType == 0) {
+                    addObject(new Monkey(-1), xSpawnLocation, BOTTOM_SPAWN);
+                } else {
+                    addObject(new Deer(-1), xSpawnLocation, BOTTOM_SPAWN);
+                }
             }
         }
 
