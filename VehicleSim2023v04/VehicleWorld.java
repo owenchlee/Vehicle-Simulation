@@ -76,23 +76,23 @@ public class VehicleWorld extends World
         setBackground (background);
     
         // Set critical variables - will affect lane drawing
-        laneCount = 6;
-        laneHeight = 64;
-        spaceBetweenLanes = 6;
-        splitAtCenter = false;
-        twoWayTraffic = false;
+        laneCount = 5;
+        laneHeight = 80;
+        spaceBetweenLanes = 10;
+        splitAtCenter = true;
+        twoWayTraffic = true;
 
         // Init lane spawner objects 
         laneSpawners = new VehicleSpawner[laneCount];
 
         // Prepare lanes method - draws the lanes
-        lanePositionsY = prepareLanes (this, background, laneSpawners, 232, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
+        lanePositionsY = prepareLanes (this, background, laneSpawners, 300, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
 
         laneSpawners[0].setSpeedModifier(0.8);
         laneSpawners[3].setSpeedModifier(1.4);
 
         setBackground (background);
-        addObject(new Forest(80), 0, 0);  // Adds forest actor at (300, 200) with max y=100 for trees
+        addObject(new Forest(150), 0, 0);  // Adds forest actor at (300, 200) with max y=120 for trees
 
     }
 
@@ -106,14 +106,12 @@ public class VehicleWorld extends World
         if (Greenfoot.getRandomNumber (laneCount * 5) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             if (!laneSpawners[lane].isTouchingVehicle()){
-                int vehicleType = Greenfoot.getRandomNumber(4);
+                int vehicleType = Greenfoot.getRandomNumber(3);
                 if (vehicleType == 0){
                     addObject(new Car(laneSpawners[lane]), 0, 0);
                 } else if (vehicleType == 1){
-                    addObject(new Bus(laneSpawners[lane]), 0, 0);
-                } else if (vehicleType == 2){
                     addObject(new Ambulance(laneSpawners[lane]), 0, 0);
-                } else if (vehicleType == 3){
+                } else if (vehicleType == 2){
                     addObject(new Truck(laneSpawners[lane]), 0, 0);
                 }
             }
@@ -122,7 +120,7 @@ public class VehicleWorld extends World
         // Chance to spawn a Pedestrian
         if (Greenfoot.getRandomNumber(30) == 0){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
-            boolean spawnAtTop = Greenfoot.getRandomNumber(2) == 0;
+            boolean spawnAtTop = Greenfoot.getRandomNumber(3) == 0; //less animals
             
             int pedestrianType = Greenfoot.getRandomNumber(2); // 0 = Monkey, 1 = Deer
         
@@ -132,13 +130,13 @@ public class VehicleWorld extends World
                 } else {
                     addObject(new Deer(1), xSpawnLocation, TOP_SPAWN);
                 }
-            } else {
+            } /*else {
                 if (pedestrianType == 0) {
                     addObject(new Monkey(-1), xSpawnLocation, BOTTOM_SPAWN);
                 } else {
                     addObject(new Deer(-1), xSpawnLocation, BOTTOM_SPAWN);
                 }
-            }
+            }*/
         }
 
     }
