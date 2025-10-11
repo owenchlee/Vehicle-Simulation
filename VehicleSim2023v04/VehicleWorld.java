@@ -40,7 +40,8 @@ public class VehicleWorld extends World
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
     public static final int BOTTOM_SPAWN = 705; // Pedestrians who spawn on the bottom
 
-
+    //set lane for only firetruck
+    private static final int SPECIAL_LANE_INDEX = 0;
     
     // Instance variables / Objects
     private boolean twoWayTraffic, splitAtCenter;
@@ -76,7 +77,7 @@ public class VehicleWorld extends World
         setBackground (background);
     
         // Set critical variables - will affect lane drawing
-        laneCount = 5;
+        laneCount = 3;
         laneHeight = 80;
         spaceBetweenLanes = 10;
         splitAtCenter = true;
@@ -89,7 +90,7 @@ public class VehicleWorld extends World
         lanePositionsY = prepareLanes (this, background, laneSpawners, 300, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
 
         laneSpawners[0].setSpeedModifier(0.8);
-        laneSpawners[3].setSpeedModifier(1.4);
+        laneSpawners[2].setSpeedModifier(1.2);
 
         setBackground (background);
         addObject(new Forest(150), 0, 0);  // Adds forest actor at (300, 200) with max y=120 for trees
@@ -103,8 +104,14 @@ public class VehicleWorld extends World
 
     private void spawn () {
         // Chance to spawn a vehicle
-        if (Greenfoot.getRandomNumber (laneCount * 5) == 0){
+        if (Greenfoot.getRandomNumber (laneCount * 100) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
+            
+            if (lane == SPECIAL_LANE_INDEX){
+                addObject(new FireTruck(laneSpawners[lane]),0,0);
+                return;
+            }
+            
             if (!laneSpawners[lane].isTouchingVehicle()){
                 int vehicleType = Greenfoot.getRandomNumber(3);
                 if (vehicleType == 0){
@@ -195,7 +202,11 @@ public class VehicleWorld extends World
             lanePositions[i] = startY + spacing + (i * (heightPerLane+spacing)) + heightOffset ;
 
             // draw lane
-            target.setColor(GREY_STREET); 
+            if (i == VehicleWorld.SPECIAL_LANE_INDEX) {
+                target.setColor(new Color(50, 80, 200)); // a blue lane
+            } else {
+                target.setColor(GREY_STREET);
+            }
             // the lane body
             target.fillRect (0, lanePositions[i] - heightOffset, target.getWidth(), heightPerLane);
             // the lane spacing - where the white or yellow lines will get drawn
