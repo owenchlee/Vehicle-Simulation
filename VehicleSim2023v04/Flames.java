@@ -3,38 +3,56 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Flames extends Actor
 {
     private int yLimit;
-    private boolean hasCreated = false;
+
+    private int totalFlames = 50;    // total flames to spawn
+    private int createdFlames = 0;   // flames spawned so far
+    private int timer = 0;           // counts act() cycles
+    private int interval = 150;       // starting interval between spawns
+    private int minInterval = 20;     // minimum interval
+    private double decay = 0.95;     // interval decreases by 5% each spawn
+    private boolean firstSpawnDone = false; // track instant first spawn
 
     public Flames(int yLimit)
     {
         this.yLimit = yLimit;
     }
 
-    private void createForest()
+    @Override
+    public void act()
     {
         World world = getWorld();
-        if (world == null) {
-            return;  // Not yet added to world, cannot add trees
-        }
-        
-        if (hasCreated){
-            return;
-        }
-        
-        hasCreated = true;
+        if (world == null) return;
 
-        int numFire = 15;
-        for (int i = 0; i < numFire; i++)
-        {
-            int x = Greenfoot.getRandomNumber(world.getWidth());
-            int y = Greenfoot.getRandomNumber(yLimit -10 + 1) + 10;
-            world.addObject(new Tree(), x, y);
+        // spawn the first flame instantly
+        if (!firstSpawnDone) {
+            spawnFire();
+            firstSpawnDone = true;
+            return; // wait next act cycle for timer
+        }
+
+        if (createdFlames >= totalFlames) {
+            return; // stop when all flames spawned
+        }
+
+        timer++;
+        if (timer >= interval) {
+            spawnFire();
+            timer = 0;
+
+            // decrease interval so fire spreads faster
+            interval = (int)Math.max(minInterval, interval * decay);
         }
     }
 
-    @Override
-    protected void addedToWorld(World world)
+    private void spawnFire()
     {
-        createForest();  // Called once this Flames has been added to the world
+        World world = getWorld();
+        if (world == null) return;
+
+        int x = Greenfoot.getRandomNumber(world.getWidth());
+        int y = Greenfoot.getRandomNumber(yLimit - 10 + 1) + 10;
+        world.addObject(new Fire(), x, y);
+
+        createdFlames++;
     }
 }

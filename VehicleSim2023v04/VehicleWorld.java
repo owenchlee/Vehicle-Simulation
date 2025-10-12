@@ -48,6 +48,9 @@ public class VehicleWorld extends World
     private int laneHeight, laneCount, spaceBetweenLanes;
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
+    private boolean onFire = false;
+    private boolean fireTruckExists = false;
+    private boolean flamesAdded = false;
 
     /**
      * Constructor for objects of class MyWorld.
@@ -69,6 +72,7 @@ public class VehicleWorld extends World
         // sub class types) and after that, all other classes not listed
         // will be displayed in random order. 
         //setPaintOrder (Pedestrian.class, Vehicle.class); // Commented out to use Z-sort instead
+        setPaintOrder(Smoker.class, Fire.class, Tree.class, Forest.class, Flames.class);
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World
@@ -93,22 +97,49 @@ public class VehicleWorld extends World
         laneSpawners[2].setSpeedModifier(1.2);
 
         setBackground (background);
-        addObject(new Forest(150), 0, 0);  // Adds forest actor at (300, 200) with max y=120 for trees
-
+        addObject(new Forest(200), 0, 0);
+        addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
     }
 
     public void act () {
-        spawn();
+        ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
+    
+        if (!smokers.isEmpty())
+        {
+            Smoker s = smokers.get(0); // check the first smoker
+            if (s.getY() < 150) 
+            {
+                onFire = true;
+                
+            }
+        }
+        
+        if (onFire && !flamesAdded) {
+            addObject(new Flames(200), 0, 0);
+            flamesAdded = true;
+        }
+
+        if (onFire){
+            spawn();
+        }
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
     }
-
+    
     private void spawn () {
         // Chance to spawn a vehicle
         if (Greenfoot.getRandomNumber (laneCount * 50) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             
-            if (lane == SPECIAL_LANE_INDEX){
-                addObject(new FireTruck(laneSpawners[lane]),0,0);
+            if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
+                int getRidFire = Greenfoot.getRandomNumber(1800);
+                if (getRidFire == 0){
+                    addObject(new FireTruck(laneSpawners[lane]),0,0);
+                    fireTruckExists = true;
+                    return;
+                } else{
+                    return;
+                }
+            } else if (lane == SPECIAL_LANE_INDEX){
                 return;
             }
             
@@ -125,7 +156,7 @@ public class VehicleWorld extends World
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber(30) == 0){
+        if (Greenfoot.getRandomNumber(30) == 0 && onFire){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
             boolean spawnAtTop = Greenfoot.getRandomNumber(3) == 0; //less animals
             

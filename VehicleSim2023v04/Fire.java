@@ -2,21 +2,49 @@
 
 public class Fire extends Actor
 {
+    private GreenfootImage[] fireFrames = new GreenfootImage[11];
+    private int frame = 0;
+    private int animationCounter = 0;
+    private final int ANIMATION_SPEED = 5;
+    int fireSize = Greenfoot.getRandomNumber(5); 
+    
     public Fire() {
-        int treeType = Greenfoot.getRandomNumber(3); // 0, 1, or 2
+        for (int i = 0; i < fireFrames.length; i++) {
+            fireFrames[i] = new GreenfootImage("Fire_" + i + ".png");
+            if (fireSize == 0) {
+                GreenfootImage img = new GreenfootImage("fire2.png");
+                fireFrames[i].scale(30, 50);
+            } else if (fireSize == 1) {
+                GreenfootImage img = new GreenfootImage("fire2.png");
+                fireFrames[i].scale(50, 70);
+            }else if (fireSize == 2){
+                GreenfootImage img = new GreenfootImage("fire3.png");
+                fireFrames[i].scale(70, 90);
+            }else if (fireSize == 3){
+                GreenfootImage img = new GreenfootImage("fire4.png");
+                fireFrames[i].scale(80, 150);
+            }
+            else {
+                GreenfootImage img = new GreenfootImage("fire5.png");
+                fireFrames[i].scale(180, 150);
+            }
+        }
+        setImage(fireFrames[0]);
 
-        if (treeType == 0) {
-            GreenfootImage img = new GreenfootImage("smallFire.png");
-            img.scale(140, 300);  // change to desired width and height
-            setImage(img);
-        } else if (treeType == 1) {
-            GreenfootImage img = new GreenfootImage("medFire.png");
-            img.scale(170, 300);  // change to desired width and height
-            setImage(img);
-        } else {
-            GreenfootImage img = new GreenfootImage("largeFire.png");
-            img.scale(190, 300);  // change to desired width and height
-            setImage(img);
+
+        
+    }
+    
+    public void act(){
+        animateFire();
+    }
+    
+    private void animateFire() {
+        animationCounter++;
+        if (animationCounter >= ANIMATION_SPEED) {
+            frame = (frame + 1) % fireFrames.length;
+            setImage(fireFrames[frame]);
+            animationCounter = 0;
         }
     }
 }
