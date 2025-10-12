@@ -14,7 +14,10 @@ public class FireTruck extends Vehicle
     private Pedestrian target = null;
     public FireTruck(VehicleSpawner origin){
         super(origin); // call the superclass' constructor first
-
+        GreenfootImage img = new GreenfootImage("fireTruck.png");
+        img.mirrorHorizontally();
+        img.scale(250, 120);  // change to desired width and height
+        setImage(img);
         // Set up values for FireTruck
         maxSpeed = 1.5 + ((Math.random() * 10)/5);
         speed = maxSpeed;

@@ -34,7 +34,7 @@ public class VehicleWorld extends World
     public static Color GREY_STREET = new Color (88, 88, 88);
     public static Color YELLOW_LINE = new Color (255, 216, 0);
 
-    public static boolean SHOW_SPAWNERS = true;
+    public static boolean SHOW_SPAWNERS = false;
     
     // Set Y Positions for Pedestrians to spawn
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
@@ -78,7 +78,7 @@ public class VehicleWorld extends World
     
         // Set critical variables - will affect lane drawing
         laneCount = 3;
-        laneHeight = 80;
+        laneHeight = 90;
         spaceBetweenLanes = 10;
         splitAtCenter = true;
         twoWayTraffic = true;
@@ -87,7 +87,7 @@ public class VehicleWorld extends World
         laneSpawners = new VehicleSpawner[laneCount];
 
         // Prepare lanes method - draws the lanes
-        lanePositionsY = prepareLanes (this, background, laneSpawners, 300, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
+        lanePositionsY = prepareLanes (this, background, laneSpawners, 350, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
 
         laneSpawners[0].setSpeedModifier(0.8);
         laneSpawners[2].setSpeedModifier(1.2);
@@ -104,7 +104,7 @@ public class VehicleWorld extends World
 
     private void spawn () {
         // Chance to spawn a vehicle
-        if (Greenfoot.getRandomNumber (laneCount * 100) == 0){
+        if (Greenfoot.getRandomNumber (laneCount * 50) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             
             if (lane == SPECIAL_LANE_INDEX){
@@ -113,12 +113,12 @@ public class VehicleWorld extends World
             }
             
             if (!laneSpawners[lane].isTouchingVehicle()){
-                int vehicleType = Greenfoot.getRandomNumber(3);
-                if (vehicleType == 0){
+                int vehicleType = Greenfoot.getRandomNumber(10);
+                if (vehicleType <= 5){
                     addObject(new Car(laneSpawners[lane]), 0, 0);
-                } else if (vehicleType == 1){
+                } else if (vehicleType == 6){
                     addObject(new Ambulance(laneSpawners[lane]), 0, 0);
-                } else if (vehicleType == 2){
+                } else if (vehicleType >= 7){
                     addObject(new Truck(laneSpawners[lane]), 0, 0);
                 }
             }
@@ -203,7 +203,7 @@ public class VehicleWorld extends World
 
             // draw lane
             if (i == VehicleWorld.SPECIAL_LANE_INDEX) {
-                target.setColor(new Color(50, 80, 200)); // a blue lane
+                target.setColor(new Color(10, 115, 30)); // a green lane
             } else {
                 target.setColor(GREY_STREET);
             }

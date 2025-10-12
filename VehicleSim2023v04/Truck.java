@@ -13,7 +13,8 @@ public class Truck extends Vehicle
     public Truck(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor
         GreenfootImage img = new GreenfootImage("towTruck.png");
-        img.scale(150, 120);  // change to desired width and height
+        
+        img.scale(170, 110);  // change to desired width and height
         setImage(img);
         maxSpeed = 1 + ((Math.random() * 30)/5);
         speed = maxSpeed;
