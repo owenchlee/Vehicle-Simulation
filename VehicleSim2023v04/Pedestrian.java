@@ -39,7 +39,7 @@ public abstract class Pedestrian extends SuperSmoothMover
             if (getOneObjectAtOffset(0, (int)(direction * getImage().getHeight()/2 + (int)(direction * speed)), Vehicle.class) == null){
                 setLocation (getX(), getY() + (speed*direction));
             }
-            if (direction == -1 && getY() < 100){
+            if (direction == -1 && getY() < 200){
                 getWorld().removeObject(this);
             } else if (direction == 1 && getY() > getWorld().getHeight() - 30){
                 getWorld().removeObject(this);

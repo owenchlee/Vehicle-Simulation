@@ -13,20 +13,20 @@ public class Fire extends Actor
             fireFrames[i] = new GreenfootImage("Fire_" + i + ".png");
             if (fireSize == 0) {
                 GreenfootImage img = new GreenfootImage("fire2.png");
-                fireFrames[i].scale(30, 50);
+                fireFrames[i].scale(20, 40);
             } else if (fireSize == 1) {
                 GreenfootImage img = new GreenfootImage("fire2.png");
-                fireFrames[i].scale(50, 70);
+                fireFrames[i].scale(40, 60);
             }else if (fireSize == 2){
                 GreenfootImage img = new GreenfootImage("fire3.png");
                 fireFrames[i].scale(70, 90);
             }else if (fireSize == 3){
                 GreenfootImage img = new GreenfootImage("fire4.png");
-                fireFrames[i].scale(80, 150);
+                fireFrames[i].scale(70, 110);
             }
             else {
                 GreenfootImage img = new GreenfootImage("fire5.png");
-                fireFrames[i].scale(180, 150);
+                fireFrames[i].scale(150, 130);
             }
         }
         setImage(fireFrames[0]);

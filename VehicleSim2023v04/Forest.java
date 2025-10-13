@@ -23,7 +23,7 @@ public class Forest extends Actor
         
         hasCreated = true;
 
-        int numTrees = 30;
+        int numTrees = 40;
         for (int i = 0; i < numTrees; i++)
         {
             int x = Greenfoot.getRandomNumber(world.getWidth());

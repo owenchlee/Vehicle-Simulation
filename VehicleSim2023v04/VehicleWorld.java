@@ -51,6 +51,8 @@ public class VehicleWorld extends World
     private boolean onFire = false;
     private boolean fireTruckExists = false;
     private boolean flamesAdded = false;
+    private int animalSpawn = 1000;
+    
 
     /**
      * Constructor for objects of class MyWorld.
@@ -107,7 +109,7 @@ public class VehicleWorld extends World
         if (!smokers.isEmpty())
         {
             Smoker s = smokers.get(0); // check the first smoker
-            if (s.getY() < 150) 
+            if (s.getY() < 205) 
             {
                 onFire = true;
                 
@@ -115,13 +117,18 @@ public class VehicleWorld extends World
         }
         
         if (onFire && !flamesAdded) {
-            addObject(new Flames(200), 0, 0);
+            addObject(new Flames(100), 0, 0);
             flamesAdded = true;
         }
 
         if (onFire){
             spawn();
         }
+        
+        if (animalSpawn > 8){
+            animalSpawn--;
+        }
+        
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
     }
     
@@ -156,7 +163,7 @@ public class VehicleWorld extends World
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber(30) == 0 && onFire){
+        if (Greenfoot.getRandomNumber(animalSpawn) == 0 && onFire){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
             boolean spawnAtTop = Greenfoot.getRandomNumber(3) == 0; //less animals
             
