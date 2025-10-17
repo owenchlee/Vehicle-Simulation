@@ -62,13 +62,13 @@ public class FireTruck extends Vehicle {
             int offsetX;
             if (nearestFire.getX() < getX()) {
                 // fire is on the left
-                offsetX = -100;
+                offsetX = -200;
             } else {
                 // fire is on the right
-                offsetX = 100;
+                offsetX = 200;
             }
 
-            world.addObject(new Firefighter(), getX() + offsetX, getY() + 50);
+            world.addObject(new Firefighter(), getX() + offsetX, getY());
             firefighterSpawned = true;
         }
     }
