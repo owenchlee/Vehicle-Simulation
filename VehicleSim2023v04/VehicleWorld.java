@@ -99,7 +99,7 @@ public class VehicleWorld extends World
         laneSpawners[2].setSpeedModifier(1.2);
 
         setBackground (background);
-        addObject(new Forest(200), 0, 0);
+        addObject(new Forest(190), 0, 0);
         addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
     }
 
@@ -125,7 +125,7 @@ public class VehicleWorld extends World
             spawn();
         }
         
-        if (animalSpawn > 8){
+        if (animalSpawn > 20){
             animalSpawn--;
         }
         
@@ -165,6 +165,9 @@ public class VehicleWorld extends World
         // Chance to spawn a Pedestrian
         if (Greenfoot.getRandomNumber(animalSpawn) == 0 && onFire){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
+            if (xSpawnLocation > getWidth()/2 -100 && xSpawnLocation < getWidth()/2 + 250){
+                return;
+            }
             boolean spawnAtTop = Greenfoot.getRandomNumber(3) == 0; //less animals
             
             int pedestrianType = Greenfoot.getRandomNumber(2); // 0 = Monkey, 1 = Deer

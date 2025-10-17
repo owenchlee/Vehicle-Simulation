@@ -11,7 +11,7 @@ public class Deer extends Pedestrian
     public Deer(int direction) {
         super(direction);  // call the Pedestrian constructor
         GreenfootImage img = new GreenfootImage("Deer.png");
-        img.scale(100, 100);  // change to desired width and height
+        img.scale(120, 120);  // change to desired width and height
         setImage(img);
     }
 

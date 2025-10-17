@@ -1,16 +1,16 @@
 #BlueJ class context
 comment0.target=FireTruck
-comment0.text=\r\n\ The\ FireTruck\ subclass\ represents\ a\ large\ public\ transit\ vehicle.\r\n\ Buses\ are\ slower\ than\ cars\ and\ taller,\ requiring\ a\ y-offset\ for\ proper\ positioning.\r\n\ Currently\ does\ not\ interact\ with\ pedestrians\ (students\ can\ implement\ this).\r\n\r\n\ @author\ Jordan\ Cohen\r\n\ @version\ 2023\r\n
 comment1.params=origin
 comment1.target=FireTruck(VehicleSpawner)
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\r\n\ Act\ -\ do\ whatever\ the\ FireTruck\ wants\ to\ do.\ This\ method\ is\ called\ whenever\r\n\ the\ 'Act'\ or\ 'Run'\ button\ gets\ pressed\ in\ the\ environment.\r\n
 comment3.params=
 comment3.target=void\ checkStopPosition()
 comment4.params=
 comment4.target=void\ spawnFirefighter()
-comment5.params=
-comment5.target=boolean\ checkHitPedestrian()
-comment5.text=\r\n\ @return\ boolean\ true\ if\ a\ pedestrian\ was\ hit,\ false\ otherwise\r\n
-numComments=6
+comment5.params=other
+comment5.target=double\ getDistanceTo(greenfoot.Actor)
+comment5.text=Helper\ method\ to\ calculate\ distance\ to\ another\ actor
+comment6.params=
+comment6.target=boolean\ checkHitPedestrian()
+numComments=7

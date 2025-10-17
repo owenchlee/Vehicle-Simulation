@@ -1,45 +1,26 @@
-import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  
+import java.util.ArrayList;
 
-/**
- * The FireTruck subclass represents a large public transit vehicle.
- * Buses are slower than cars and taller, requiring a y-offset for proper positioning.
- * Currently does not interact with pedestrians (students can implement this).
- *
- * @author Jordan Cohen
- * @version 2023
- */
-public class FireTruck extends Vehicle
-{
+public class FireTruck extends Vehicle {
     int waitTimer = 60;
-    
     private boolean hasStopped = false;
     private boolean firefighterSpawned = false;
-    public FireTruck(VehicleSpawner origin){
-        super(origin); // call the superclass' constructor first
+
+    public FireTruck(VehicleSpawner origin) {
+        super(origin);
         GreenfootImage img = new GreenfootImage("fireTruck.png");
         img.mirrorHorizontally();
-        img.scale(250, 120);  // change to desired width and height
+        img.scale(250, 120);
         setImage(img);
-        // Set up values for FireTruck
-        maxSpeed = 1.5 + ((Math.random() * 10)/5);
+        maxSpeed = 1.5 + ((Math.random() * 10) / 5);
         speed = maxSpeed;
-        // because the FireTruck graphic is tall, offset it up (this may result in some collision check issues)
         yOffset = 15;
-        followingDistance = 50; // Buses need more following distance due to size
+        followingDistance = 50;
     }
 
-    /**
-     * Act - do whatever the FireTruck wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
-    public void act()
-    {
-        if (getWorld() == null) {
-            // FireTruck has been removed, skip actions
-            return;
-        }
+    public void act() {
+        if (getWorld() == null) return;
 
-        // Call Vehicle's movement and logic if not stopped
         if (!hasStopped) {
             super.act();
             checkStopPosition();
@@ -49,7 +30,7 @@ public class FireTruck extends Vehicle
 
         checkHitPedestrian();
     }
-    
+
     private void checkStopPosition() {
         World world = getWorld();
         if (world != null && getX() <= world.getWidth() / 2) {
@@ -57,22 +38,50 @@ public class FireTruck extends Vehicle
             speed = 0;
         }
     }
-    
+
     private void spawnFirefighter() {
         if (!firefighterSpawned) {
-            getWorld().addObject(new Firefighter(), getX(), getY() + 50); // below the truck
+            World world = getWorld();
+            if (world == null) return;
+
+            // find all fires
+            ArrayList<Fire> fires = (ArrayList<Fire>) world.getObjects(Fire.class);
+            if (fires.isEmpty()) return;
+
+            // find nearest fire
+            Fire nearestFire = fires.get(0);
+            double nearestDist = getDistanceTo(nearestFire);
+            for (Fire fire : fires) {
+                double d = getDistanceTo(fire);
+                if (d < nearestDist) {
+                    nearestFire = fire;
+                    nearestDist = d;
+                }
+            }
+
+            int offsetX;
+            if (nearestFire.getX() < getX()) {
+                // fire is on the left
+                offsetX = -100;
+            } else {
+                // fire is on the right
+                offsetX = 100;
+            }
+
+            world.addObject(new Firefighter(), getX() + offsetX, getY() + 50);
             firefighterSpawned = true;
         }
     }
-    
-    /**
-     * @return boolean true if a pedestrian was hit, false otherwise
-     */
-    public boolean checkHitPedestrian(){
+
+    /** Helper method to calculate distance to another actor */
+    private double getDistanceTo(Actor other) {
+        int dx = other.getX() - getX();
+        int dy = other.getY() - getY();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    public boolean checkHitPedestrian() {
         Pedestrian p = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
-        if (p != null) {
-            return true;
-        }
-        return false;
+        return p != null;
     }
 }

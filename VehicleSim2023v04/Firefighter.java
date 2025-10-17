@@ -2,29 +2,38 @@ import greenfoot.*;
 import java.util.ArrayList;
 
 public class Firefighter extends Actor {
-    private boolean extinguished = false;
-    private boolean flipped = false;  // track whether image has been flipped
-    private boolean hasShot = false;
-    
-    public Firefighter(){
+    private boolean flipped = false;
+    private int shootCooldown = 0; // delay between shots
+
+    public Firefighter() {
         GreenfootImage img = new GreenfootImage("Firefighter.png");
-        img.scale(80, 100); // adjust size to match your world
+        img.scale(160, 200);
         setImage(img);
     }
+
     public void act() {
-        if (!hasShot) {
-            Fire nearestFire = getNearestFire();
-            if (nearestFire != null) {
-                faceFire(nearestFire);
-                shootWater(nearestFire);
-            }
+        if (getWorld() == null) return;
+
+        ArrayList<Fire> fires = (ArrayList<Fire>) getWorld().getObjects(Fire.class);
+
+        // stop if no fires remain
+        if (fires.isEmpty()) return;
+
+        Fire nearestFire = getNearestFire(fires);
+        if (nearestFire == null) return;
+
+        faceFire(nearestFire);
+
+        // shoot every 30 frames
+        if (shootCooldown <= 0) {
+            shootWater(nearestFire);
+            shootCooldown = 15; // adjust for faster/slower shooting
+        } else {
+            shootCooldown--;
         }
     }
 
-    private Fire getNearestFire() {
-        ArrayList<Fire> fires = (ArrayList<Fire>) getWorld().getObjects(Fire.class);
-        if (fires.isEmpty()) return null;
-
+    private Fire getNearestFire(ArrayList<Fire> fires) {
         Fire nearest = fires.get(0);
         double nearestDistance = getDistanceTo(nearest);
 
@@ -35,16 +44,15 @@ public class Firefighter extends Actor {
                 nearestDistance = distance;
             }
         }
-
         return nearest;
     }
-    
-    private double getDistanceTo(Fire fire) {
-        int dx = fire.getX() - getX();
-        int dy = fire.getY() - getY();
+
+    private double getDistanceTo(Actor other) {
+        int dx = other.getX() - getX();
+        int dy = other.getY() - getY();
         return Math.sqrt(dx * dx + dy * dy);
     }
-    
+
     private void flipImage() {
         GreenfootImage img = getImage();
         img.mirrorHorizontally();
@@ -60,12 +68,8 @@ public class Firefighter extends Actor {
             flipped = false;
         }
     }
-    
+
     private void shootWater(Fire fire) {
-        // Create a simple water animation or effect
-        getWorld().addObject(new Water(), getX(), getY() - 40); // above firefighter
-        Greenfoot.delay(30); // wait a short time before putting out fire
-        getWorld().removeObject(fire); // remove the fire
-        hasShot = true;
+        getWorld().addObject(new Water(fire), getX(), getY() - 60);
     }
 }
