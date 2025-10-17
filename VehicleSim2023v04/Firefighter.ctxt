@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.target=Firefighter
+comment1.params=
+comment1.target=Firefighter()
+comment2.params=
+comment2.target=void\ act()
+comment3.params=
+comment3.target=Fire\ getNearestFire()
+comment4.params=fire
+comment4.target=double\ getDistanceTo(Fire)
+comment5.params=
+comment5.target=void\ flipImage()
+comment6.params=fire
+comment6.target=void\ faceFire(Fire)
+comment7.params=fire
+comment7.target=void\ shootWater(Fire)
+numComments=8

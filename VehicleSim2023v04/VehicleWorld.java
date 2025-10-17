@@ -138,7 +138,7 @@ public class VehicleWorld extends World
             int lane = Greenfoot.getRandomNumber(laneCount);
             
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
-                int getRidFire = Greenfoot.getRandomNumber(1800);
+                int getRidFire = Greenfoot.getRandomNumber(1);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
                     fireTruckExists = true;

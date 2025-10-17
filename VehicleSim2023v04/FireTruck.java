@@ -11,7 +11,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class FireTruck extends Vehicle
 {
     int waitTimer = 60;
-    private Pedestrian target = null;
+    
+    private boolean hasStopped = false;
+    private boolean firefighterSpawned = false;
     public FireTruck(VehicleSpawner origin){
         super(origin); // call the superclass' constructor first
         GreenfootImage img = new GreenfootImage("fireTruck.png");
@@ -32,40 +34,45 @@ public class FireTruck extends Vehicle
      */
     public void act()
     {
-       if (getWorld() == null) {
-        // FireTruck has been removed, skip actions
-            return;
-       }
-       super.act();
-       checkHitPedestrian();
-    }
-
-    /**
-     * Check if this FireTruck hits a Pedestrian. This method is intentionally left empty
-     * for students to implement their own pedestrian interaction logic.
-     *
-     * @return boolean true if a pedestrian was hit, false otherwise
-     */
-    public boolean checkHitPedestrian () {
         if (getWorld() == null) {
-            return false; // bus no longer in world, skip
+            // FireTruck has been removed, skip actions
+            return;
         }
 
-        // TODO: Students should implement Bus-specific pedestrian interaction here
-        target = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
-        if (target != null && !(target.getPicked())&& target.isAwake()) {
-            target.setPicked();
-            moving = false;
-            sleepFor(60);
-            moving = true;
-            getWorld().removeObject(target);
+        // Call Vehicle's movement and logic if not stopped
+        if (!hasStopped) {
+            super.act();
+            checkStopPosition();
+        } else {
+            spawnFirefighter();
+        }
+
+        checkHitPedestrian();
+    }
+    
+    private void checkStopPosition() {
+        World world = getWorld();
+        if (world != null && getX() <= world.getWidth() / 2) {
+            hasStopped = true;
+            speed = 0;
+        }
+    }
+    
+    private void spawnFirefighter() {
+        if (!firefighterSpawned) {
+            getWorld().addObject(new Firefighter(), getX(), getY() + 50); // below the truck
+            firefighterSpawned = true;
+        }
+    }
+    
+    /**
+     * @return boolean true if a pedestrian was hit, false otherwise
+     */
+    public boolean checkHitPedestrian(){
+        Pedestrian p = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
+        if (p != null) {
             return true;
         }
         return false;
-    }
-    
-    public void stopMe () {
-        moving = false;
-        speed = 0;
     }
 }
