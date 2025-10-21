@@ -31,14 +31,13 @@ public class Smoke extends Effect
     public void act () {
         VehicleWorld world = (VehicleWorld) getWorld();
         
-        if (!world.getFire()) {
+        if (!world.isOnFire()){
             super.act();
         }
         
         if (getWorld() == null){
             return;
         }
-        
         
         // Move around back and forth
         if (duration > 0){
@@ -52,15 +51,15 @@ public class Smoke extends Effect
 
     private void drawimage() {
         image = new GreenfootImage(2048, 800);
-        image.setColor(new Color(80, 80, 80, 80)); // smoky gray background
+        image.setColor(new Color(80, 80, 80, 50)); // smoky gray background
         image.fill();
     
         // Add smoke particles
-        image.setColor(new Color(80, 80, 80, 2));
+        image.setColor(new Color(80, 80, 80, 20));
         for (int i = 0; i < 3000; i++) { // fewer, larger wisps than rain
             int randX = Greenfoot.getRandomNumber(image.getWidth());
             int randY = Greenfoot.getRandomNumber(image.getHeight());
-            int randSize = 30 + Greenfoot.getRandomNumber(20); // bigger circles
+            int randSize = 30 + Greenfoot.getRandomNumber(20); 
             image.fillOval(randX, randY, randSize, randSize);
         }
     

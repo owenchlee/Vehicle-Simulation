@@ -27,7 +27,7 @@ public class Firefighter extends Actor {
         // shoot every 30 frames
         if (shootCooldown <= 0) {
             shootWater(nearestFire);
-            shootCooldown = 15; // adjust for faster/slower shooting
+            shootCooldown = 10; // adjust for faster/slower shooting
         } else {
             shootCooldown--;
         }

@@ -2,6 +2,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.Collections;
 import java.util.ArrayList;
 /**
+ * 
+ * Description
+ * Works cited and known bugs
  * <h1>The new and vastly improved 2022 Vehicle Simulation Assignment.</h1>
  * <p> This is the first redo of the 8 year old project. Lanes are now drawn dynamically, allowing for
  *     much greater customization. Pedestrians can now move in two directions. The graphics are better
@@ -48,12 +51,12 @@ public class VehicleWorld extends World
     private int laneHeight, laneCount, spaceBetweenLanes;
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
-    private boolean onFire = false;
+    private boolean onFire;
     private boolean fireTruckExists = false;
     private boolean flamesAdded = false;
     private int animalSpawn = 1000;
     private int actCount = 0;
-    
+    private boolean smoky = false;
 
     /**
      * Constructor for objects of class MyWorld.
@@ -118,18 +121,17 @@ public class VehicleWorld extends World
             }
         }
         
-        if(Flames.getFireStatus()){
-            onFire = false;
-        }
-        
         if (onFire && !flamesAdded) {
-            addObject(new Flames (100), 0, 0); 
+            addObject(new Flames(100), 0, 0);
             flamesAdded = true;
         }
 
-        if (onFire){
+        if (isOnFire()){
             spawn();
-        }
+        } else if (!isOnFire()){
+            onFire = false;
+            resetWorld();
+        }        
         
         if (animalSpawn > 20){
             animalSpawn--;
@@ -138,17 +140,27 @@ public class VehicleWorld extends World
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
     }
     
-    private void spawn () {
-        if (actCount % 720 == 0){
-            addObject(new Smoke(), 512, 400);
+    public void resetWorld(){
+        for (Object obj : getObjects(FireTruck.class)) {
+            ((FireTruck)obj).reset();
         }
-        
+    }
+    
+    public boolean isOnFire(){
+        return !getObjects(Fire.class).isEmpty();
+    }
+    
+    private void spawn () {
+        if (actCount % 720 == 0 && !smoky){
+            addObject(new Smoke(), 512, 400);
+            smoky = true;
+        }
         // Chance to spawn a vehicle
         if (Greenfoot.getRandomNumber (laneCount * 50) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
-                int getRidFire = Greenfoot.getRandomNumber(1);
+                int getRidFire = Greenfoot.getRandomNumber(5);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
                     fireTruckExists = true;
@@ -173,7 +185,7 @@ public class VehicleWorld extends World
         }
 
         // Chance to spawn a Pedestrian
-        if (Greenfoot.getRandomNumber(animalSpawn) == 0 && onFire){
+        if (Greenfoot.getRandomNumber(animalSpawn) == 0){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
             if (xSpawnLocation > getWidth()/2 -100 && xSpawnLocation < getWidth()/2 + 250){
                 return;
@@ -197,10 +209,6 @@ public class VehicleWorld extends World
             }*/
         }
 
-    }
-    
-    public boolean getFire(){
-        return onFire;
     }
 
     /**
@@ -330,85 +338,85 @@ public class VehicleWorld extends World
         return lanePositions;
     }
 
-    /**
- * Z-sort so actors with higher Y (lower on screen) render in front.
- * Uses precise Y for SuperSmoothMover when available. Stable for ties.
- */
-public static void zSort(java.util.ArrayList<greenfoot.Actor> actorsToSort, greenfoot.World world) {
-    // Local container class (scoped to this method only).
-    class Entry implements java.lang.Comparable<Entry> {
-        final greenfoot.Actor actor;
-        final boolean superSmooth;
-        final int order;     // preserve original order for stable ties
-        final int xi, yi;    // integer coords snapshot
-        final double xd, yd; // precise coords snapshot
-
-        // int-based actor
-        Entry(greenfoot.Actor a, int x, int y, int order) {
-            this.actor = a; this.superSmooth = false; this.order = order;
-            this.xi = x; this.yi = y;
-            this.xd = x; this.yd = y;
+        /**
+     * Z-sort so actors with higher Y (lower on screen) render in front.
+     * Uses precise Y for SuperSmoothMover when available. Stable for ties.
+     */
+    public static void zSort(java.util.ArrayList<greenfoot.Actor> actorsToSort, greenfoot.World world) {
+        // Local container class (scoped to this method only).
+        class Entry implements java.lang.Comparable<Entry> {
+            final greenfoot.Actor actor;
+            final boolean superSmooth;
+            final int order;     // preserve original order for stable ties
+            final int xi, yi;    // integer coords snapshot
+            final double xd, yd; // precise coords snapshot
+    
+            // int-based actor
+            Entry(greenfoot.Actor a, int x, int y, int order) {
+                this.actor = a; this.superSmooth = false; this.order = order;
+                this.xi = x; this.yi = y;
+                this.xd = x; this.yd = y;
+            }
+            // precise-based actor
+            Entry(greenfoot.Actor a, double x, double y, int order) {
+                this.actor = a; this.superSmooth = true; this.order = order;
+                this.xi = (int) x; this.yi = (int) y;
+                this.xd = x; this.yd = y;
+            }
+    
+            @Override
+            public int compareTo(Entry other) {
+                double thisY  = superSmooth ? yd : yi;
+                double otherY = other.superSmooth ? other.yd : other.yi;
+    
+                // Handle rare NaN robustly: treat NaN as far back
+                if (java.lang.Double.isNaN(thisY) && java.lang.Double.isNaN(otherY)) return java.lang.Integer.compare(order, other.order);
+                if (java.lang.Double.isNaN(thisY)) return -1;
+                if (java.lang.Double.isNaN(otherY)) return 1;
+    
+                int cmp = java.lang.Double.compare(thisY, otherY);
+                if (cmp != 0) return cmp;
+                return java.lang.Integer.compare(this.order, other.order); // stable tie-break
+            }
         }
-        // precise-based actor
-        Entry(greenfoot.Actor a, double x, double y, int order) {
-            this.actor = a; this.superSmooth = true; this.order = order;
-            this.xi = (int) x; this.yi = (int) y;
-            this.xd = x; this.yd = y;
+    
+        // Snapshot actors and positions first.
+        java.util.ArrayList<Entry> list = new java.util.ArrayList<Entry>(actorsToSort.size());
+        int order = 0;
+        for (greenfoot.Actor a : actorsToSort) {
+            if (a instanceof SuperSmoothMover) {
+                SuperSmoothMover s = (SuperSmoothMover) a;
+                list.add(new Entry(a, s.getPreciseX(), s.getPreciseY(), order++));
+            } else {
+                list.add(new Entry(a, a.getX(), a.getY(), order++));
+            }
         }
-
-        @Override
-        public int compareTo(Entry other) {
-            double thisY  = superSmooth ? yd : yi;
-            double otherY = other.superSmooth ? other.yd : other.yi;
-
-            // Handle rare NaN robustly: treat NaN as far back
-            if (java.lang.Double.isNaN(thisY) && java.lang.Double.isNaN(otherY)) return java.lang.Integer.compare(order, other.order);
-            if (java.lang.Double.isNaN(thisY)) return -1;
-            if (java.lang.Double.isNaN(otherY)) return 1;
-
-            int cmp = java.lang.Double.compare(thisY, otherY);
-            if (cmp != 0) return cmp;
-            return java.lang.Integer.compare(this.order, other.order); // stable tie-break
+    
+        // Sort farthest-back (smallest Y) first.
+        java.util.Collections.sort(list);
+    
+        // Re-add in paint order with consistent rounding, then restore precise coords.
+        for (Entry e : list) {
+            // Remove if currently in any world to ensure paint-order reset
+            if (e.actor.getWorld() != null) {
+                world.removeObject(e.actor);
+            }
+            if (e.superSmooth) {
+                int rx = roundAwayFromZero(e.xd);
+                int ry = roundAwayFromZero(e.yd);
+                world.addObject(e.actor, rx, ry);
+                // Restore exact double-precision location to avoid drift
+                ((SuperSmoothMover) e.actor).setLocation(e.xd, e.yd);
+            } else {
+                world.addObject(e.actor, e.xi, e.yi);
+            }
         }
     }
 
-    // Snapshot actors and positions first.
-    java.util.ArrayList<Entry> list = new java.util.ArrayList<Entry>(actorsToSort.size());
-    int order = 0;
-    for (greenfoot.Actor a : actorsToSort) {
-        if (a instanceof SuperSmoothMover) {
-            SuperSmoothMover s = (SuperSmoothMover) a;
-            list.add(new Entry(a, s.getPreciseX(), s.getPreciseY(), order++));
-        } else {
-            list.add(new Entry(a, a.getX(), a.getY(), order++));
-        }
+    /** Helper: symmetric rounding that rounds halves away from zero. */
+    private static int roundAwayFromZero(double v) {
+        return (int)(v + Math.signum(v) * 0.5);
     }
-
-    // Sort farthest-back (smallest Y) first.
-    java.util.Collections.sort(list);
-
-    // Re-add in paint order with consistent rounding, then restore precise coords.
-    for (Entry e : list) {
-        // Remove if currently in any world to ensure paint-order reset
-        if (e.actor.getWorld() != null) {
-            world.removeObject(e.actor);
-        }
-        if (e.superSmooth) {
-            int rx = roundAwayFromZero(e.xd);
-            int ry = roundAwayFromZero(e.yd);
-            world.addObject(e.actor, rx, ry);
-            // Restore exact double-precision location to avoid drift
-            ((SuperSmoothMover) e.actor).setLocation(e.xd, e.yd);
-        } else {
-            world.addObject(e.actor, e.xi, e.yi);
-        }
-    }
-}
-
-/** Helper: symmetric rounding that rounds halves away from zero. */
-private static int roundAwayFromZero(double v) {
-    return (int)(v + Math.signum(v) * 0.5);
-}
 
     /**
      * <p>The prepareLanes method is a static (standalone) method that takes a list of parameters about the desired roadway and then builds it.</p>

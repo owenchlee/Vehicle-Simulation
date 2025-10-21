@@ -13,4 +13,6 @@ comment5.target=double\ getDistanceTo(greenfoot.Actor)
 comment5.text=Helper\ method\ to\ calculate\ distance\ to\ another\ actor
 comment6.params=
 comment6.target=boolean\ checkHitPedestrian()
-numComments=7
+comment7.params=
+comment7.target=void\ reset()
+numComments=8

@@ -12,7 +12,14 @@ public class Effect extends SuperSmoothMover
     protected int totalFadeTime;
     protected GreenfootImage image;
     
-    protected void fade (int timeLeft, int totalFadeTime){
+    protected void fadeOut (int timeLeft, int totalFadeTime){
+        double percent = timeLeft / (double)totalFadeTime;
+        if (percent > 1.00) return;
+        int newTransparency = (int)(percent * 255);
+        image.setTransparency (newTransparency);
+    }
+    
+    protected void fadeIn (int timeLeft, int totalFadeTime){
         double percent = timeLeft / (double)totalFadeTime;
         if (percent > 1.00) return;
         int newTransparency = (int)(percent * 255);
@@ -26,7 +33,7 @@ public class Effect extends SuperSmoothMover
     public void act()
     {
         actCount--;
-        fade (actCount, totalFadeTime);
+        fadeOut(actCount, totalFadeTime);
         // System.out.println(getX()); // for testing
         if (actCount == 0){
             getWorld().removeObject(this);

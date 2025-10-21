@@ -84,4 +84,8 @@ public class FireTruck extends Vehicle {
         Pedestrian p = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
         return p != null;
     }
+    
+    public void reset(){
+        speed = maxSpeed;
+    }
 }

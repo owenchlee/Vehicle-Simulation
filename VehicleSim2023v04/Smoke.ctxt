@@ -2,7 +2,7 @@
 comment0.target=Smoke
 comment1.params=
 comment1.target=Smoke()
-comment1.text=\r\n\ Constructor\ for\ class\ Storm\r\n
+comment1.text=\n\ Constructor\ for\ class\ Storm\n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
