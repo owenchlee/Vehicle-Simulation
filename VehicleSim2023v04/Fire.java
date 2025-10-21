@@ -30,9 +30,6 @@ public class Fire extends Actor
             }
         }
         setImage(fireFrames[0]);
-
-
-        
     }
     
     public void act(){

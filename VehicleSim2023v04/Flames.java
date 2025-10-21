@@ -13,12 +13,17 @@ public class Flames extends Actor
     private boolean firstSpawnDone = false; // track instant first spawn
     private int originX = -1;        // original X of the first flame
     private int spreadRange = 150;    // how far flames can spread horizontally from origin
+    private static boolean fireDone = false;
 
     public Flames(int yLimit)
     {
         this.yLimit = yLimit;
     }
-
+    
+    public void start(){
+        fireDone = false;
+    }
+    
     @Override
     public void act()
     {
@@ -28,11 +33,18 @@ public class Flames extends Actor
         // spawn the first flame instantly
         if (!firstSpawnDone) {
             spawnFire();
+            fireDone = false;
             firstSpawnDone = true;
             return; // wait next act cycle for timer
         }
-
+        
+        if (world.getObjects(Fire.class).isEmpty()) {
+            fireDone = true;
+            return;
+        }
+        
         if (createdFlames >= totalFlames) {
+            fireDone = true;
             return; // stop when all flames spawned
         }
 
@@ -44,6 +56,10 @@ public class Flames extends Actor
             // decrease interval so fire spreads faster
             interval = (int)Math.max(minInterval, interval * decay);
         }
+    }
+    
+    public static boolean getFireStatus(){
+        return fireDone;
     }
 
     private void spawnFire()

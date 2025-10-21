@@ -6,7 +6,7 @@ public class Water extends Actor {
     public Water(Fire target) {
         this.target = target;
         GreenfootImage img = new GreenfootImage("water.png");
-        img.scale(200, 130);
+        img.scale(180, 110);
         setImage(img);
     }
 

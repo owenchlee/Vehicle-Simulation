@@ -32,8 +32,9 @@ public class Tree extends Actor
     
     public void act()
     {
+        Fire fire = (Fire) getOneIntersectingObject(Fire.class);
         // check if tree is on fire
-        if (onFire)
+        if (onFire && fire != null)
         {
             fireTimer++;
 
@@ -51,8 +52,6 @@ public class Tree extends Actor
         }
         else
         {
-            // detect fire intersection
-            Fire fire = (Fire) getOneIntersectingObject(Fire.class);
             if (fire != null)
             {
                 onFire = true;

@@ -52,6 +52,7 @@ public class VehicleWorld extends World
     private boolean fireTruckExists = false;
     private boolean flamesAdded = false;
     private int animalSpawn = 1000;
+    private int actCount = 0;
     
 
     /**
@@ -74,7 +75,7 @@ public class VehicleWorld extends World
         // sub class types) and after that, all other classes not listed
         // will be displayed in random order. 
         //setPaintOrder (Pedestrian.class, Vehicle.class); // Commented out to use Z-sort instead
-        setPaintOrder(Smoker.class, Fire.class, Tree.class, Forest.class, Flames.class);
+        setPaintOrder(Smoke.class, Smoker.class, Fire.class, Tree.class, Forest.class, Flames.class);
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World
@@ -104,6 +105,7 @@ public class VehicleWorld extends World
     }
 
     public void act () {
+        actCount++;
         ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
     
         if (!smokers.isEmpty())
@@ -116,8 +118,12 @@ public class VehicleWorld extends World
             }
         }
         
+        if(Flames.getFireStatus()){
+            onFire = false;
+        }
+        
         if (onFire && !flamesAdded) {
-            addObject(new Flames(100), 0, 0);
+            addObject(new Flames (100), 0, 0); 
             flamesAdded = true;
         }
 
@@ -133,6 +139,10 @@ public class VehicleWorld extends World
     }
     
     private void spawn () {
+        if (actCount % 720 == 0){
+            addObject(new Smoke(), 512, 400);
+        }
+        
         // Chance to spawn a vehicle
         if (Greenfoot.getRandomNumber (laneCount * 50) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
@@ -187,6 +197,10 @@ public class VehicleWorld extends World
             }*/
         }
 
+    }
+    
+    public boolean getFire(){
+        return onFire;
     }
 
     /**
