@@ -14,4 +14,6 @@ comment6.params=fire
 comment6.target=void\ faceFire(Fire)
 comment7.params=fire
 comment7.target=void\ shootWater(Fire)
-numComments=8
+comment8.params=
+comment8.target=void\ reset()
+numComments=9

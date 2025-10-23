@@ -4,7 +4,9 @@ import java.util.ArrayList;
 public class FireTruck extends Vehicle {
     int waitTimer = 60;
     private boolean hasStopped = false;
+    private boolean stoppedBefore = false;
     private boolean firefighterSpawned = false;
+    private ArrayList<FireTruck> firetrucks = new ArrayList<>();
 
     public FireTruck(VehicleSpawner origin) {
         super(origin);
@@ -23,8 +25,11 @@ public class FireTruck extends Vehicle {
 
         if (!hasStopped) {
             super.act();
-            checkStopPosition();
+            if (!stoppedBefore){
+                checkStopPosition();
+            }
         } else {
+            stoppedBefore = true;
             spawnFirefighter();
         }
     }
@@ -89,7 +94,7 @@ public class FireTruck extends Vehicle {
     }
     
     public void reset(){
-        speed = maxSpeed;
         hasStopped = false;
+        speed = maxSpeed;
     }
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 public class Firefighter extends Actor {
     private boolean flipped = false;
     private int shootCooldown = 0; // delay between shots
+    private int moved = 0;
 
     public Firefighter() {
         GreenfootImage img = new GreenfootImage("Firefighter.png");
@@ -71,5 +72,9 @@ public class Firefighter extends Actor {
 
     private void shootWater(Fire fire) {
         getWorld().addObject(new Water(fire), getX(), getY() - 60);
+    }
+    
+    public void reset(){
+        getWorld().removeObject(this);
     }
 }

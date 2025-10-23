@@ -57,7 +57,7 @@ public class VehicleWorld extends World
     private int animalSpawn = 1000;
     private int actCount = 0;
     private boolean smoky = false;
-    private boolean reseted = false;
+    private boolean resetedLanes = true;
 
     /**
      * Constructor for objects of class MyWorld.
@@ -129,11 +129,11 @@ public class VehicleWorld extends World
 
         if (isOnFire()){
             spawn();
-            //reseted = false;
+            resetedLanes = false;
         } else if (!isOnFire()){
-            //reseted = true;
             onFire = false;
             resetWorld();
+            resetedLanes = true;
         }        
         
         if (animalSpawn > 20){
@@ -150,6 +150,17 @@ public class VehicleWorld extends World
         for (Object tree: getObjects(Tree.class)){
             ((Tree)tree).reset();
         }
+        for (Object fireMan: getObjects(Firefighter.class)){
+            ((Firefighter)fireMan).reset();
+        }
+        if (!resetedLanes){
+            resetLanes();
+        }
+    }
+    
+    public void resetLanes(){
+        addObject(new Ambulance(laneSpawners[1]), 0, 0);
+        addObject(new Ambulance(laneSpawners[2]), 0, 0);
     }
     
     public boolean isOnFire(){
@@ -166,7 +177,7 @@ public class VehicleWorld extends World
             int lane = Greenfoot.getRandomNumber(laneCount);
             
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
-                int getRidFire = Greenfoot.getRandomNumber(1);
+                int getRidFire = Greenfoot.getRandomNumber(3);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
                     fireTruckExists = true;

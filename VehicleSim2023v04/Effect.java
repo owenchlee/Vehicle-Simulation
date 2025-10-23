@@ -39,7 +39,5 @@ public class Effect extends SuperSmoothMover
             getWorld().removeObject(this);
             return;
         }
-
-        
     }
 }

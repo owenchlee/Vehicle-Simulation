@@ -64,11 +64,10 @@ public class Tree extends Actor
     }
     
     public void reset(){
-        int chanceForLeaves = Greenfoot.getRandomNumber(1000);
+        int chanceForLeaves = Greenfoot.getRandomNumber(500);
         if (chanceForLeaves == 0){
             setImage(normal);
         }
-        
     }
     
 }
