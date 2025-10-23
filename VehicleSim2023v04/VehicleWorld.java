@@ -59,6 +59,7 @@ public class VehicleWorld extends World
     private boolean smoky = false;
     private boolean resetedLanes = true;
     
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -110,14 +111,10 @@ public class VehicleWorld extends World
     
     public void act () {
         actCount++;
+        spawnSmoker();
         
         ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
-        /*
-        if (smokers.isEmpty() && !onFire){
-            addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
-            onFire = true;
-        }
-        */
+        
         if (!smokers.isEmpty())
         {
             Smoker s = smokers.get(0); // check the first smoker
@@ -138,7 +135,6 @@ public class VehicleWorld extends World
         } else if (!isOnFire()){
             onFire = false;
             resetWorld();
-            resetedLanes = true;
         }        
         
         if (animalSpawn > 20){
@@ -160,7 +156,12 @@ public class VehicleWorld extends World
         }
         if (!resetedLanes){
             resetLanes();
-            actCount = 0;
+            resetedLanes = true;
+            actCount = -500;
+            flamesAdded = false;
+            fireTruckExists = false;
+            animalSpawn = 1000;
+            smoky = false;
         }
     }
     
@@ -232,6 +233,12 @@ public class VehicleWorld extends World
             }*/
         }
 
+    }
+    
+    private void spawnSmoker(){
+        if (actCount == 0){
+            addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
+        }
     }
 
     /**

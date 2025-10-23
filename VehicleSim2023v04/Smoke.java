@@ -55,7 +55,7 @@ public class Smoke extends Effect
         image.fill();
     
         // Add smoke particles
-        image.setColor(new Color(80, 80, 80, 20));
+        image.setColor(new Color(80, 80, 80, 50));
         for (int i = 0; i < 3000; i++) { // fewer, larger wisps than rain
             int randX = Greenfoot.getRandomNumber(image.getWidth());
             int randY = Greenfoot.getRandomNumber(image.getHeight());
