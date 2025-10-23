@@ -27,8 +27,6 @@ public class FireTruck extends Vehicle {
         } else {
             spawnFirefighter();
         }
-
-        checkHitPedestrian();
     }
 
     private void checkStopPosition() {
@@ -81,11 +79,17 @@ public class FireTruck extends Vehicle {
     }
 
     public boolean checkHitPedestrian() {
-        Pedestrian p = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
-        return p != null;
+        Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
+        if (p != null)
+        {
+            p.knockDown();
+            return true;
+        }
+        return false;
     }
     
     public void reset(){
         speed = maxSpeed;
+        hasStopped = false;
     }
 }
