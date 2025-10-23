@@ -87,7 +87,7 @@ public class FireTruck extends Vehicle {
         Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
         if (p != null)
         {
-            p.knockDown();
+            //p.knockDown();
             return true;
         }
         return false;

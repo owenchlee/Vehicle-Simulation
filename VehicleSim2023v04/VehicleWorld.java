@@ -58,7 +58,7 @@ public class VehicleWorld extends World
     private int actCount = 0;
     private boolean smoky = false;
     private boolean resetedLanes = true;
-
+    
     /**
      * Constructor for objects of class MyWorld.
      * 
@@ -79,7 +79,7 @@ public class VehicleWorld extends World
         // sub class types) and after that, all other classes not listed
         // will be displayed in random order. 
         //setPaintOrder (Pedestrian.class, Vehicle.class); // Commented out to use Z-sort instead
-        setPaintOrder(Smoke.class, Smoker.class, Fire.class, Tree.class, Forest.class, Flames.class);
+        setPaintOrder(Water.class, Smoke.class, Smoker.class, Fire.class, Tree.class, Forest.class, Flames.class);
 
         // set up background -- If you change this, make 100% sure
         // that your chosen image is the same size as the World
@@ -107,18 +107,23 @@ public class VehicleWorld extends World
         addObject(new Forest(190), 0, 0);
         addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
     }
-
+    
     public void act () {
         actCount++;
+        
         ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
-    
+        /*
+        if (smokers.isEmpty() && !onFire){
+            addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
+            onFire = true;
+        }
+        */
         if (!smokers.isEmpty())
         {
             Smoker s = smokers.get(0); // check the first smoker
             if (s.getY() < 205) 
             {
                 onFire = true;
-                
             }
         }
         
@@ -155,6 +160,7 @@ public class VehicleWorld extends World
         }
         if (!resetedLanes){
             resetLanes();
+            actCount = 0;
         }
     }
     

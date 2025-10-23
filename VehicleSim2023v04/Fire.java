@@ -23,8 +23,7 @@ public class Fire extends Actor
             }else if (fireSize == 3){
                 GreenfootImage img = new GreenfootImage("fire4.png");
                 fireFrames[i].scale(70, 110);
-            }
-            else {
+            }else {
                 GreenfootImage img = new GreenfootImage("fire5.png");
                 fireFrames[i].scale(150, 130);
             }
@@ -34,6 +33,8 @@ public class Fire extends Actor
     
     public void act(){
         animateFire();
+        touchingWater();
+        
     }
     
     private void animateFire() {
@@ -42,6 +43,12 @@ public class Fire extends Actor
             frame = (frame + 1) % fireFrames.length;
             setImage(fireFrames[frame]);
             animationCounter = 0;
+        }
+    }
+    
+    private void touchingWater(){
+        if (getOneIntersectingObject(Water.class) != null){
+            getWorld().removeObject(this);
         }
     }
 }
