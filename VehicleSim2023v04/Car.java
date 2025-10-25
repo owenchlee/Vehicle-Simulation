@@ -12,7 +12,7 @@ public class Car extends Vehicle
     
     public Car(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor
-        maxSpeed = 1.5 + ((Math.random() * 30)/5);
+        maxSpeed = 1.5 + ((Math.random() * 50)/5);
         speed = maxSpeed;
         yOffset = 4;
         followingDistance = 6;
@@ -34,18 +34,21 @@ public class Car extends Vehicle
         Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
         if (pCenter != null && pCenter.isAwake()) {
             pCenter.knockDown();
+            checkHitDeer(pCenter);
             return true;
         }
     
         Pedestrian pTop = (Pedestrian)getOneObjectAtOffset(frontX, -heightSpacing, Pedestrian.class);
         if (pTop != null && pTop.isAwake()) {
             pTop.knockDown();
+            checkHitDeer(pTop);
             return true;
         }
     
         Pedestrian pBottom = (Pedestrian)getOneObjectAtOffset(frontX, heightSpacing, Pedestrian.class);
         if (pBottom != null && pBottom.isAwake()) {
             pBottom.knockDown();
+            checkHitDeer(pBottom);
             return true;
         }
     

@@ -42,13 +42,15 @@ public class VehicleWorld extends World
     // Set Y Positions for Pedestrians to spawn
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
     public static final int BOTTOM_SPAWN = 705; // Pedestrians who spawn on the bottom
+    public static final int LANE_HEIGHT = 90;
 
     //set lane for only firetruck
     private static final int SPECIAL_LANE_INDEX = 0;
     
+    
     // Instance variables / Objects
     private boolean twoWayTraffic, splitAtCenter;
-    private int laneHeight, laneCount, spaceBetweenLanes;
+    private int laneCount, spaceBetweenLanes;
     private int[] lanePositionsY;
     private VehicleSpawner[] laneSpawners;
     private boolean onFire;
@@ -56,8 +58,10 @@ public class VehicleWorld extends World
     private boolean flamesAdded = false;
     private int animalSpawn = 1000;
     private int actCount = 0;
+    private int resetCount = 0;
     private boolean smoky = false;
     private boolean resetedLanes = true;
+    
     
     
     /**
@@ -90,7 +94,7 @@ public class VehicleWorld extends World
     
         // Set critical variables - will affect lane drawing
         laneCount = 3;
-        laneHeight = 90;
+        
         spaceBetweenLanes = 10;
         splitAtCenter = true;
         twoWayTraffic = true;
@@ -99,7 +103,7 @@ public class VehicleWorld extends World
         laneSpawners = new VehicleSpawner[laneCount];
 
         // Prepare lanes method - draws the lanes
-        lanePositionsY = prepareLanes (this, background, laneSpawners, 350, laneHeight, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
+        lanePositionsY = prepareLanes (this, background, laneSpawners, 350, LANE_HEIGHT, laneCount, spaceBetweenLanes, twoWayTraffic, splitAtCenter);
 
         laneSpawners[0].setSpeedModifier(0.8);
         laneSpawners[2].setSpeedModifier(1.2);
@@ -131,6 +135,7 @@ public class VehicleWorld extends World
 
         if (isOnFire()){
             spawn();
+            resetCount = 0;
             resetedLanes = false;
         } else if (!isOnFire()){
             onFire = false;
@@ -145,6 +150,7 @@ public class VehicleWorld extends World
     }
     
     public void resetWorld(){
+        resetCount++;
         for (Object obj : getObjects(FireTruck.class)) {
             ((FireTruck)obj).reset();
         }
@@ -154,7 +160,7 @@ public class VehicleWorld extends World
         for (Object fireMan: getObjects(Firefighter.class)){
             ((Firefighter)fireMan).reset();
         }
-        if (!resetedLanes){
+        if (!resetedLanes && resetCount % 200 == 0){
             resetLanes();
             resetedLanes = true;
             actCount = -500;
@@ -184,7 +190,7 @@ public class VehicleWorld extends World
             int lane = Greenfoot.getRandomNumber(laneCount);
             
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
-                int getRidFire = Greenfoot.getRandomNumber(3);
+                int getRidFire = Greenfoot.getRandomNumber(2);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
                     fireTruckExists = true;

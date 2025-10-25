@@ -17,7 +17,7 @@ public class Ambulance extends Vehicle
         GreenfootImage img = new GreenfootImage("ambulance.png");
         img.scale(100, 80);  // change to desired width and height
         setImage(img);
-        maxSpeed = 2.5;
+        maxSpeed = 5;
         speed = maxSpeed;
         followingDistance = 8; // Ambulances need more space due to urgency
     }

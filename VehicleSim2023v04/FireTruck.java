@@ -14,7 +14,7 @@ public class FireTruck extends Vehicle {
         img.mirrorHorizontally();
         img.scale(250, 120);
         setImage(img);
-        maxSpeed = 1.5 + ((Math.random() * 10) / 5);
+        maxSpeed = 8;
         speed = maxSpeed;
         yOffset = 15;
         followingDistance = 50;

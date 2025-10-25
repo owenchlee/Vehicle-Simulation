@@ -242,8 +242,18 @@ public abstract class Vehicle extends SuperSmoothMover
      * if a faster vehicle is ahead in the lane.
      */
     public double getSpeed(){
-        if (moving)
+        if (moving){
             return speed;
+        }
         return 0;
+    }
+    
+    protected void checkHitDeer(Pedestrian p){
+        if (p instanceof Deer){
+            int explode = Greenfoot.getRandomNumber(1);
+            if (explode == 0){
+                getWorld().addObject(new Explosion(), getX(), getY());
+            }
+        }
     }
 }
