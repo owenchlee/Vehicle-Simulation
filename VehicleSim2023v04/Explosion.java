@@ -11,7 +11,7 @@ public class Explosion extends Effect
     private int myDiameter;
     
     public Explosion (){
-        myDiameter = VehicleWorld.LANE_HEIGHT * 4;
+        myDiameter = VehicleWorld.LANE_HEIGHT * 3;
         drawImage();
         actCount = 300;
         totalFadeTime = 5;

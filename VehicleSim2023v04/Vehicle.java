@@ -253,6 +253,7 @@ public abstract class Vehicle extends SuperSmoothMover
             int explode = Greenfoot.getRandomNumber(1);
             if (explode == 0){
                 getWorld().addObject(new Explosion(), getX(), getY());
+                getWorld().addObject(new ExplodeAnim(), getX(), getY());
             }
         }
     }
