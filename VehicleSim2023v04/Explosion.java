@@ -11,7 +11,7 @@ public class Explosion extends Effect
     private int myDiameter;
     
     public Explosion (){
-        myDiameter = VehicleWorld.LANE_HEIGHT * 3;
+        myDiameter = VehicleWorld.LANE_HEIGHT * 4;
         drawImage();
         actCount = 300;
         totalFadeTime = 5;
@@ -42,6 +42,7 @@ public class Explosion extends Effect
         image = new GreenfootImage (myDiameter, myDiameter);
         image.setColor (new Color (190, 40, 0));
         image.fillOval(0, 0, myDiameter-2, myDiameter -2);
+        image.setTransparency (50);
         setImage(image);
     }
 }
