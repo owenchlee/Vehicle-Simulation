@@ -21,7 +21,7 @@ public class Water extends Actor {
 
         // move toward the fire
         turnTowards(target.getX(), target.getY());
-        move(10);
+        move(15);
 
         // extinguish on contact
         if (intersects(target)) {

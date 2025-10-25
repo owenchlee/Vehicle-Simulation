@@ -41,10 +41,27 @@ public class Ambulance extends Vehicle
     public boolean checkHitPedestrian () {
         // TODO: Students should implement Ambulance-specific pedestrian interaction here
         // (Hint: Ambulances might heal pedestrians instead of harming them)
-        Pedestrian p = (Pedestrian) getOneIntersectingObject(Pedestrian.class);
-        if (p != null) {
-            p.healMe();
+        int frontX = (int)speed + getImage().getWidth()/2;
+        int heightSpacing = (getImage().getHeight() / 2) - 5;
+    
+        Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
+        if (pCenter != null) {
+            pCenter.healMe();
+            return true;
         }
+    
+        Pedestrian pTop = (Pedestrian)getOneObjectAtOffset(frontX, -heightSpacing, Pedestrian.class);
+        if (pTop != null) {
+            pTop.healMe();
+            return true;
+        }
+    
+        Pedestrian pBottom = (Pedestrian)getOneObjectAtOffset(frontX, heightSpacing, Pedestrian.class);
+        if (pBottom != null) {
+            pBottom.healMe();
+            return true;
+        }
+    
         return false;
     }
 }

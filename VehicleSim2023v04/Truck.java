@@ -32,13 +32,27 @@ public class Truck extends Vehicle
      * When a Truck hit's a Pedestrian, it should knock it over
      */
     public boolean checkHitPedestrian () {
-        Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
-        if (p != null)
-        {
-            p.knockDown();
+        int frontX = (int)speed + getImage().getWidth()/2;
+        int heightSpacing = (getImage().getHeight() / 2) - 25;
+    
+        Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
+        if (pCenter != null && pCenter.isAwake()) {
+            pCenter.knockDown();
             return true;
         }
+    
+        Pedestrian pTop = (Pedestrian)getOneObjectAtOffset(frontX, -heightSpacing, Pedestrian.class);
+        if (pTop != null && pTop.isAwake()) {
+            pTop.knockDown();
+            return true;
+        }
+    
+        Pedestrian pBottom = (Pedestrian)getOneObjectAtOffset(frontX, heightSpacing, Pedestrian.class);
+        if (pBottom != null && pBottom.isAwake()) {
+            pBottom.knockDown();
+            return true;
+        }
+    
         return false;
-        
     }
 }

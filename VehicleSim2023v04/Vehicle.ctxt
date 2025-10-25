@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.target=Vehicle
 comment0.text=\n\ This\ is\ the\ abstract\ superclass\ for\ all\ Vehicles\ in\ the\ simulation.\n\n\ Vehicles\ move\ horizontally\ across\ the\ screen\ in\ lanes,\ following\ traffic\ rules\n\ such\ as\ maintaining\ following\ distance\ and\ adjusting\ speed\ based\ on\ traffic\ ahead.\n\ All\ Vehicle\ subclasses\ must\ implement\ the\ checkHitPedestrian()\ method\ to\ define\n\ their\ specific\ interaction\ with\ pedestrians.\n\n\ @author\ Jordan\ Cohen\n\ @version\ 2023\n
-comment1.params=
-comment1.target=boolean\ checkHitPedestrian()
-comment2.params=origin
-comment2.target=Vehicle(VehicleSpawner)
+comment1.params=origin
+comment1.target=Vehicle(VehicleSpawner)
+comment2.params=
+comment2.target=boolean\ checkHitPedestrian()
 comment3.params=w
 comment3.target=void\ addedToWorld(greenfoot.World)
 comment3.text=\n\ This\ method\ is\ called\ automatically\ when\ the\ Vehicle\ is\ added\ to\ the\ World,\ and\ places\n\ the\ Vehicle\ just\ off\ screen\ (centered\ 100\ pixels\ beyond\ the\ center\ of\ the\ lane\ spawner)\n\ so\ it\ will\ appear\ to\ roll\ onto\ the\ screen\ smoothly.\n

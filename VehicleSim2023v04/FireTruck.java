@@ -83,13 +83,26 @@ public class FireTruck extends Vehicle {
         return Math.sqrt(dx * dx + dy * dy);
     }
 
+    //firetruck doesnt known down pedestrians
     public boolean checkHitPedestrian() {
-        Pedestrian p = (Pedestrian)getOneObjectAtOffset((int)speed + getImage().getWidth()/2, 0, Pedestrian.class);
-        if (p != null)
-        {
-            //p.knockDown();
+        int frontX = (int)speed + getImage().getWidth()/2;
+        int heightSpacing = (getImage().getHeight() / 2) - 5;
+    
+        Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
+        if (pCenter != null && pCenter.isAwake()) {
             return true;
         }
+    
+        Pedestrian pTop = (Pedestrian)getOneObjectAtOffset(frontX, -heightSpacing, Pedestrian.class);
+        if (pTop != null && pTop.isAwake()) {
+            return true;
+        }
+    
+        Pedestrian pBottom = (Pedestrian)getOneObjectAtOffset(frontX, heightSpacing, Pedestrian.class);
+        if (pBottom != null && pBottom.isAwake()) {
+            return true;
+        }
+    
         return false;
     }
     

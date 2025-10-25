@@ -24,7 +24,7 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int followingDistance;
     protected int myLaneNumber;
 
-    protected abstract boolean checkHitPedestrian ();
+    
 
     public Vehicle (VehicleSpawner origin) {
         // remember the VehicleSpawner I came from. This includes information
@@ -53,7 +53,33 @@ public abstract class Vehicle extends SuperSmoothMover
         // to the world (instantly, not visibly) by the z-sort, and without this,
         // they would continue to return to their start points.
     }
-
+    
+    protected boolean checkHitPedestrian()
+    {
+        int frontX = direction * ((int)speed + getImage().getWidth() / 2);
+        int halfHeight = getImage().getHeight() / 2;
+    
+        Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
+        if (pCenter != null && pCenter.isAwake()) {
+            pCenter.knockDown();
+            return true;
+        }
+    
+        Pedestrian pTop = (Pedestrian)getOneObjectAtOffset(frontX, -halfHeight, Pedestrian.class);
+        if (pTop != null && pTop.isAwake()) {
+            pTop.knockDown();
+            return true;
+        }
+    
+        Pedestrian pBottom = (Pedestrian)getOneObjectAtOffset(frontX, halfHeight, Pedestrian.class);
+        if (pBottom != null && pBottom.isAwake()) {
+            pBottom.knockDown();
+            return true;
+        }
+    
+        return false;
+    }
+    
     /**
      * This method is called automatically when the Vehicle is added to the World, and places
      * the Vehicle just off screen (centered 100 pixels beyond the center of the lane spawner)
