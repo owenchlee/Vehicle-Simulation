@@ -23,6 +23,7 @@ public abstract class Vehicle extends SuperSmoothMover
     protected VehicleSpawner origin;
     protected int followingDistance;
     protected int myLaneNumber;
+    protected boolean switchedLanes = false;
 
     
 
@@ -214,10 +215,40 @@ public abstract class Vehicle extends SuperSmoothMover
         // Ahead is a generic vehicle - we don't know what type BUT
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
+        double speedChange = maxSpeed - speed;
+        // if myLaneNumber = 1, the vehicle is on the top
         Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + 6), 0, Vehicle.class);
         double otherVehicleSpeed = -1;
-        if (ahead != null) {
+        int frontX = (int)speed + getImage().getWidth()/2;
+        
+        //laneSwitch
+        if (speedChange > 2){
+            Detector zone = new Detector(getImage().getWidth() + 10, getImage().getHeight());
+            if (myLaneNumber == 1 && !switchedLanes){
+                getWorld().addObject(zone, getX(), getY() + (VehicleWorld.LANE_HEIGHT) + 10);
+                
+                if (zone.isEmpty()){
+                    setLocation(getX(), getY() + (VehicleWorld.LANE_HEIGHT+10));
+                    switchedLanes = true;
+                    getWorld().removeObject(zone);
+                } else{
+                    getWorld().removeObject(zone);
+                }
+            } else if (myLaneNumber == 2 && !switchedLanes){
+                getWorld().addObject(zone, getX(), getY() - (VehicleWorld.LANE_HEIGHT + 10));
 
+                if (zone.isEmpty()){
+                    setLocation(getX(), getY() - (VehicleWorld.LANE_HEIGHT) + 10);
+                    switchedLanes = true;
+                    getWorld().removeObject(zone);
+                }else{
+                    getWorld().removeObject(zone);
+                }
+                
+            }
+        }
+        
+        if (ahead != null) {
             otherVehicleSpeed = ahead.getSpeed();
         }
 
@@ -250,7 +281,7 @@ public abstract class Vehicle extends SuperSmoothMover
     
     protected void checkHitDeer(Pedestrian p){
         if (p instanceof Deer){
-            int explode = Greenfoot.getRandomNumber(1);
+            int explode = Greenfoot.getRandomNumber(10);
             if (explode == 0){
                 getWorld().addObject(new Explosion(), getX(), getY());
                 getWorld().addObject(new ExplodeAnim(), getX(), getY());

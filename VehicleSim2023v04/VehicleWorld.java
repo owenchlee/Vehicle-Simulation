@@ -37,7 +37,7 @@ public class VehicleWorld extends World
     public static Color GREY_STREET = new Color (88, 88, 88);
     public static Color YELLOW_LINE = new Color (255, 216, 0);
 
-    public static boolean SHOW_SPAWNERS = false;
+    public static boolean SHOW_SPAWNERS = true;
     
     // Set Y Positions for Pedestrians to spawn
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
