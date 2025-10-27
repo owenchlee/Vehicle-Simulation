@@ -64,6 +64,7 @@ public class VehicleWorld extends World
     
     private GreenfootSound backgroundSound;
     private GreenfootSound fireCrackle;
+    public GreenfootSound smokeHowl;
     
     
     /**
@@ -117,6 +118,8 @@ public class VehicleWorld extends World
         backgroundSound = new GreenfootSound ("forestAmbient.mp3");
         fireCrackle = new GreenfootSound ("fireCrackle.mp3");
         fireCrackle.setVolume(50);
+        smokeHowl = new GreenfootSound ("smokeHowl.mp3");
+        smokeHowl.setVolume(30);
     }
     
     public void act () {
@@ -147,6 +150,7 @@ public class VehicleWorld extends World
         } else if (!isOnFire()){
             onFire = false;
             fireCrackle.stop();
+            smokeHowl.stop();
             resetWorld();
         }        
         
@@ -164,6 +168,7 @@ public class VehicleWorld extends World
     public void stopped(){
         backgroundSound.stop();
         fireCrackle.stop();
+        smokeHowl.stop();
     }
     
     public void resetWorld(){
@@ -200,6 +205,7 @@ public class VehicleWorld extends World
     private void spawn () {
         if (actCount % 720 == 0 && !smoky){
             addObject(new Smoke(), 512, 400);
+            smokeHowl.playLoop();
             smoky = true;
         }
         // Chance to spawn a vehicle

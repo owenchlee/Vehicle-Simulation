@@ -15,7 +15,7 @@ public class Smoke extends Effect
 
     private final int SMOKE_DENSITY = 5000;
     
-    private GreenfootSound smokeHowl;
+    
     
     /**
      * Constructor for class Storm
@@ -29,17 +29,11 @@ public class Smoke extends Effect
         direction = 1;
         duration = 50;
         speed = 1.5;
-        smokeHowl = new GreenfootSound ("smokeHowl.mp3");
-        smokeHowl.setVolume(100);
-    }
-    
-    public void stopped(){
-        smokeHowl.stop();
     }
 
     public void act () {
         VehicleWorld world = (VehicleWorld) getWorld();
-        smokeHowl.playLoop();
+        
         if (!world.isOnFire()){
             super.act();
         }

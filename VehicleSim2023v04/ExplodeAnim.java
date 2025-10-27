@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class ExplodeAnim extends Actor
 
 {
-    private int actCount = 240;
+    private int actCount = 200;
     
     public ExplodeAnim(){
         for (GreenfootImage frame : explode.getImages()) {

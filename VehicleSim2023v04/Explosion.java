@@ -10,18 +10,23 @@ public class Explosion extends Effect
 {
     private int myDiameter;
     private GreenfootSound explode;
+    private boolean playedSound = false;
     
     public Explosion (){
         myDiameter = VehicleWorld.LANE_HEIGHT * 4;
         drawImage();
-        actCount = 240;
+        actCount = 200;
         totalFadeTime = 50;
         explode = new GreenfootSound ("carExplode.mp3");
     }
     public void act()
     {
         super.act();
-        explode.play();
+        if (!playedSound){
+            explode.play();
+            playedSound = true;
+        }
+        
         if (getWorld() == null){
             return;
         }
