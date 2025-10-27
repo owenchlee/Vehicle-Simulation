@@ -16,7 +16,7 @@ public class Truck extends Vehicle
         
         img.scale(170, 110);  // change to desired width and height
         setImage(img);
-        maxSpeed = 1 + ((Math.random() * 30)/5);
+        maxSpeed = 1 + ((Math.random() * 10)/5);
         speed = maxSpeed;
         yOffset = 4;
         followingDistance = 6;

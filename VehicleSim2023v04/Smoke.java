@@ -14,6 +14,9 @@ public class Smoke extends Effect
     private final int HIGHEST_POSITION = 512;
 
     private final int SMOKE_DENSITY = 5000;
+    
+    private GreenfootSound smokeHowl;
+    
     /**
      * Constructor for class Storm
      */
@@ -26,11 +29,17 @@ public class Smoke extends Effect
         direction = 1;
         duration = 50;
         speed = 1.5;
+        smokeHowl = new GreenfootSound ("smokeHowl.mp3");
+        smokeHowl.setVolume(100);
+    }
+    
+    public void stopped(){
+        smokeHowl.stop();
     }
 
     public void act () {
         VehicleWorld world = (VehicleWorld) getWorld();
-        
+        smokeHowl.playLoop();
         if (!world.isOnFire()){
             super.act();
         }
@@ -51,11 +60,11 @@ public class Smoke extends Effect
 
     private void drawimage() {
         image = new GreenfootImage(2048, 800);
-        image.setColor(new Color(80, 80, 80, 50)); // smoky gray background
+        image.setColor(new Color(80, 80, 80, 40)); // smoky gray background
         image.fill();
     
         // Add smoke particles
-        image.setColor(new Color(80, 80, 80, 50));
+        image.setColor(new Color(80, 80, 80, 40));
         for (int i = 0; i < 3000; i++) { // fewer, larger wisps than rain
             int randX = Greenfoot.getRandomNumber(image.getWidth());
             int randY = Greenfoot.getRandomNumber(image.getHeight());

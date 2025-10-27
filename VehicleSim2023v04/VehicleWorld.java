@@ -62,6 +62,8 @@ public class VehicleWorld extends World
     private boolean smoky = false;
     private boolean resetedLanes = true;
     
+    private GreenfootSound backgroundSound;
+    private GreenfootSound fireCrackle;
     
     
     /**
@@ -111,6 +113,10 @@ public class VehicleWorld extends World
         setBackground (background);
         addObject(new Forest(190), 0, 0);
         addObject(new Smoker(-1), 200, BOTTOM_SPAWN);
+        
+        backgroundSound = new GreenfootSound ("forestAmbient.mp3");
+        fireCrackle = new GreenfootSound ("fireCrackle.mp3");
+        fireCrackle.setVolume(50);
     }
     
     public void act () {
@@ -135,10 +141,12 @@ public class VehicleWorld extends World
 
         if (isOnFire()){
             spawn();
+            fireCrackle.playLoop();
             resetCount = 0;
             resetedLanes = false;
         } else if (!isOnFire()){
             onFire = false;
+            fireCrackle.stop();
             resetWorld();
         }        
         
@@ -147,6 +155,15 @@ public class VehicleWorld extends World
         }
         
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
+    }
+    
+    public void started(){
+        backgroundSound.playLoop();
+    }
+    
+    public void stopped(){
+        backgroundSound.stop();
+        fireCrackle.stop();
     }
     
     public void resetWorld(){
@@ -186,11 +203,11 @@ public class VehicleWorld extends World
             smoky = true;
         }
         // Chance to spawn a vehicle
-        if (Greenfoot.getRandomNumber (laneCount * 50) == 0){
+        if (Greenfoot.getRandomNumber (laneCount * 40) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
             
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
-                int getRidFire = Greenfoot.getRandomNumber(2);
+                int getRidFire = Greenfoot.getRandomNumber(3);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
                     fireTruckExists = true;
@@ -217,7 +234,7 @@ public class VehicleWorld extends World
         // Chance to spawn a Pedestrian
         if (Greenfoot.getRandomNumber(animalSpawn) == 0){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
-            if (xSpawnLocation > getWidth()/2 -100 && xSpawnLocation < getWidth()/2 + 250){
+            if (xSpawnLocation > getWidth()/2 -120 && xSpawnLocation < getWidth()/2 + 250){
                 return;
             }
             boolean spawnAtTop = Greenfoot.getRandomNumber(3) == 0; //less animals

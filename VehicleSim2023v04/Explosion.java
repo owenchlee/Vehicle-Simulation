@@ -9,17 +9,19 @@ import java.util.ArrayList;
 public class Explosion extends Effect
 {
     private int myDiameter;
+    private GreenfootSound explode;
     
     public Explosion (){
         myDiameter = VehicleWorld.LANE_HEIGHT * 4;
         drawImage();
-        actCount = 300;
-        totalFadeTime = 5;
+        actCount = 240;
+        totalFadeTime = 50;
+        explode = new GreenfootSound ("carExplode.mp3");
     }
     public void act()
     {
         super.act();
-        
+        explode.play();
         if (getWorld() == null){
             return;
         }
@@ -36,6 +38,8 @@ public class Explosion extends Effect
             }
             getWorld().removeObject(v);
         }
+        
+        
     }
     
     public void drawImage(){
