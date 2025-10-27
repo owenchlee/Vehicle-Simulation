@@ -19,6 +19,7 @@ public class Explosion extends Effect
         totalFadeTime = 50;
         explode = new GreenfootSound ("carExplode.mp3");
     }
+    
     public void act()
     {
         super.act();

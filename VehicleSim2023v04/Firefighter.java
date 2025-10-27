@@ -5,11 +5,19 @@ public class Firefighter extends Actor {
     private boolean flipped = false;
     private int shootCooldown = 0; // delay between shots
     private int moved = 0;
+    private GreenfootSound[] waterSounds;
+    private int waterSoundsIndex;
 
     public Firefighter() {
         GreenfootImage img = new GreenfootImage("Firefighter.png");
         img.scale(160, 200);
         setImage(img);
+        waterSoundsIndex = 0;
+        waterSounds = new GreenfootSound[20];
+        for (int i = 0; i < waterSounds.length; i++){
+            waterSounds[i] = new GreenfootSound ("waterShot.mp3");
+        }
+        
     }
 
     public void act() {
@@ -27,7 +35,12 @@ public class Firefighter extends Actor {
 
         if (shootCooldown <= 0) {
             shootWater(nearestFire);
-            shootCooldown = 50; // adjust for faster/slower shooting
+            waterSounds[waterSoundsIndex].play();
+            waterSoundsIndex++;
+            if (waterSoundsIndex > waterSounds.length-1){
+                waterSoundsIndex = 0;
+            }
+            shootCooldown = 40;
         } else {
             shootCooldown--;
         }

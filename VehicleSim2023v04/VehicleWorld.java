@@ -65,6 +65,7 @@ public class VehicleWorld extends World
     private GreenfootSound backgroundSound;
     private GreenfootSound fireCrackle;
     public GreenfootSound smokeHowl;
+    private GreenfootSound siren;
     
     
     /**
@@ -120,6 +121,7 @@ public class VehicleWorld extends World
         fireCrackle.setVolume(50);
         smokeHowl = new GreenfootSound ("smokeHowl.mp3");
         smokeHowl.setVolume(30);
+        siren = new GreenfootSound ("siren.mp3");
     }
     
     public void act () {
@@ -151,6 +153,7 @@ public class VehicleWorld extends World
             onFire = false;
             fireCrackle.stop();
             smokeHowl.stop();
+            siren.stop();
             resetWorld();
         }        
         
@@ -169,6 +172,7 @@ public class VehicleWorld extends World
         backgroundSound.stop();
         fireCrackle.stop();
         smokeHowl.stop();
+        siren.stop();
     }
     
     public void resetWorld(){
@@ -205,7 +209,7 @@ public class VehicleWorld extends World
     private void spawn () {
         if (actCount % 720 == 0 && !smoky){
             addObject(new Smoke(), 512, 400);
-            smokeHowl.playLoop();
+            smokeHowl.play();
             smoky = true;
         }
         // Chance to spawn a vehicle
@@ -216,6 +220,7 @@ public class VehicleWorld extends World
                 int getRidFire = Greenfoot.getRandomNumber(3);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
+                    siren.playLoop();
                     fireTruckExists = true;
                     return;
                 } else{

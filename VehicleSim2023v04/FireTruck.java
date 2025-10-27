@@ -7,6 +7,7 @@ public class FireTruck extends Vehicle {
     private boolean stoppedBefore = false;
     private boolean firefighterSpawned = false;
     private ArrayList<FireTruck> firetrucks = new ArrayList<>();
+    
 
     public FireTruck(VehicleSpawner origin) {
         super(origin);
@@ -14,15 +15,16 @@ public class FireTruck extends Vehicle {
         img.mirrorHorizontally();
         img.scale(250, 120);
         setImage(img);
-        maxSpeed = 8;
+        maxSpeed = 7;
         speed = maxSpeed;
         yOffset = 15;
         followingDistance = 50;
+        
     }
 
     public void act() {
         if (getWorld() == null) return;
-
+        
         if (!hasStopped) {
             super.act();
             if (!stoppedBefore){
