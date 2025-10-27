@@ -21,7 +21,6 @@ public class Car extends Vehicle
     public void act()
     {
         super.act();
-        
         // make car different - put code here
     }
 

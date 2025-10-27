@@ -25,6 +25,8 @@ public abstract class Vehicle extends SuperSmoothMover
     protected int myLaneNumber;
     protected boolean switchedLanes = false;
 
+    private GreenfootSound honk;
+    private GreenfootSound vroom;
     
 
     public Vehicle (VehicleSpawner origin) {
@@ -53,6 +55,9 @@ public abstract class Vehicle extends SuperSmoothMover
         // it's starting position once. Vehicles are removed and re-added
         // to the world (instantly, not visibly) by the z-sort, and without this,
         // they would continue to return to their start points.
+        
+        honk = new GreenfootSound ("carHonk.mp3");
+        vroom = new GreenfootSound ("passingCar.mp3");
     }
     
     protected boolean checkHitPedestrian()
@@ -215,31 +220,35 @@ public abstract class Vehicle extends SuperSmoothMover
         // Ahead is a generic vehicle - we don't know what type BUT
         // since every Vehicle "promises" to have a getSpeed() method,
         // we can call that on any vehicle to find out it's speed
-        double speedChange = maxSpeed - speed;
         // if myLaneNumber = 1, the vehicle is on the top
+        
+        double speedChange = maxSpeed - speed;
         Vehicle ahead = (Vehicle) getOneObjectAtOffset (direction * (int)(speed + getImage().getWidth()/2 + 6), 0, Vehicle.class);
         double otherVehicleSpeed = -1;
         int frontX = (int)speed + getImage().getWidth()/2;
         
         //laneSwitch
-        if (speedChange > 2){
-            Detector zone = new Detector(getImage().getWidth() + 10, getImage().getHeight());
+        if (speedChange > 1.5){
+            honk.play();
+            Detector zone = new Detector(getImage().getWidth() + 50, getImage().getHeight());
             if (myLaneNumber == 1 && !switchedLanes){
-                getWorld().addObject(zone, getX(), getY() + (VehicleWorld.LANE_HEIGHT) + 10);
+                getWorld().addObject(zone, getX(), getY() + (VehicleWorld.LANE_HEIGHT + 12));
                 
                 if (zone.isEmpty()){
-                    setLocation(getX(), getY() + (VehicleWorld.LANE_HEIGHT+10));
+                    setLocation(getX(), getY() + (VehicleWorld.LANE_HEIGHT + 12));
                     switchedLanes = true;
+                    vroom.play();
                     getWorld().removeObject(zone);
                 } else{
                     getWorld().removeObject(zone);
                 }
             } else if (myLaneNumber == 2 && !switchedLanes){
-                getWorld().addObject(zone, getX(), getY() - (VehicleWorld.LANE_HEIGHT + 10));
+                getWorld().addObject(zone, getX(), getY() - (VehicleWorld.LANE_HEIGHT + 12));
 
                 if (zone.isEmpty()){
-                    setLocation(getX(), getY() - (VehicleWorld.LANE_HEIGHT) + 10);
+                    setLocation(getX(), getY() - (VehicleWorld.LANE_HEIGHT + 12));
                     switchedLanes = true;
+                    vroom.play();
                     getWorld().removeObject(zone);
                 }else{
                     getWorld().removeObject(zone);
