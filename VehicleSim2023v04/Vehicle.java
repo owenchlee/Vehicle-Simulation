@@ -27,6 +27,7 @@ public abstract class Vehicle extends SuperSmoothMover
 
     private GreenfootSound honk;
     private GreenfootSound vroom;
+    private boolean slowedBefore = false;
     
 
     public Vehicle (VehicleSpawner origin) {
@@ -58,6 +59,14 @@ public abstract class Vehicle extends SuperSmoothMover
         
         honk = new GreenfootSound ("carHonk.mp3");
         vroom = new GreenfootSound ("passingCar.mp3");
+    }
+    
+    public void setSpeedMultiplier(double multiplier) {
+        if (!slowedBefore){
+            maxSpeed = maxSpeed * multiplier;
+        }
+        
+        slowedBefore = true;
     }
     
     protected boolean checkHitPedestrian()

@@ -50,6 +50,19 @@ public class Smoke extends Effect
             direction *= -1;
             duration = 50;
         }
+        
+        ArrayList<Pedestrian> peds = (ArrayList<Pedestrian>)getIntersectingObjects( Pedestrian.class);
+        for (Pedestrian p : peds){
+            p.setSpeedMultiplier(1.5);
+        }
+        
+        ArrayList<Vehicle> vehicle = (ArrayList<Vehicle>)getIntersectingObjects(Vehicle.class);
+        for (Vehicle v : vehicle){
+            if (v instanceof FireTruck){
+                return;
+            }
+            v.setSpeedMultiplier(0.5);
+        }
     }
 
     private void drawimage() {

@@ -47,7 +47,11 @@ public abstract class Pedestrian extends SuperSmoothMover
 
         }
     }
-
+    
+    public void setSpeedMultiplier(double multiplier) {
+        speed = maxSpeed * multiplier;
+    }
+    
     /**
      * Method to cause this Pedestrian to become knocked down - stop moving, turn onto side
      */
