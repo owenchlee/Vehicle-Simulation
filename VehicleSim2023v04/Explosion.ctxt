@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Explosion
-comment0.text=\n\ explosion\ which\ is\ the\ local\ collision\ based\ effect\n
+comment0.text=\r\n\ explosion\ which\ is\ the\ local\ collision\ based\ effect\r\n
 comment1.params=
 comment1.target=Explosion()
 comment2.params=

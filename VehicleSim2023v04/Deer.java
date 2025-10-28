@@ -19,7 +19,7 @@ public class Deer extends Pedestrian
     @Override
     public void act() {
         super.act();  // reuse general pedestrian behavior
-        int chanceToCall = Greenfoot.getRandomNumber(6000);
+        int chanceToCall = Greenfoot.getRandomNumber(4000);
         if (chanceToCall == 0 && !call.isPlaying()){
             call.play();
         } 

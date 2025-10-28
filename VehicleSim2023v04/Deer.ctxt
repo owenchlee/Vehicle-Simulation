@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Deer
-comment0.text=\n\ Deer\ cross\ the\ road\ and\ also\ make\ noise\ occasionally\n
+comment0.text=\r\n\ Deer\ cross\ the\ road\ and\ also\ make\ noise\ occasionally\r\n
 comment1.params=direction
 comment1.target=Deer(int)
 comment2.params=

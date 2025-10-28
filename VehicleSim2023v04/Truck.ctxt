@@ -1,11 +1,11 @@
 #BlueJ class context
 comment0.target=Truck
-comment0.text=\n\ The\ truck\ is\ a\ nice\ vehicle\ that\ saves\ all\ the\ monkeys\ it\ encounters\n
+comment0.text=\r\n\ The\ truck\ is\ a\ nice\ vehicle\ that\ saves\ all\ the\ monkeys\ it\ encounters\r\n
 comment1.params=origin
 comment1.target=Truck(VehicleSpawner)
 comment2.params=
 comment2.target=void\ act()
 comment3.params=
 comment3.target=boolean\ checkHitPedestrian()
-comment3.text=\n\ When\ a\ Truck\ hit's\ a\ Pedestrian,\ it\ should\ knock\ it\ over\n
+comment3.text=\r\n\ When\ a\ Truck\ hit's\ a\ Pedestrian,\ it\ should\ knock\ it\ over\r\n
 numComments=4

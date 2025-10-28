@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * My simulation takes place in a forest and it warns its viewers of repeated mistake of smoking or starting fires in forests that lead to wildfire.
  * At the start, a man who is smoking walks into the forest and it lights on fire over time
  * A firetruck will come and a firefighter will exit the truck to get rid of the fire
- * During the fire, a layer of smoke will arise and monkeys and deer try to run away from the burning forest 
+ * During the fire, a layer of smoke will arise and monkeys (some are super fast supermonkeys) and deer try to run away from the burning forest 
  * When the fire is all put out, the firetruck leaves and the cycle restarts again, highlighting the repetitive nature of this mistake
  * When the simulation is reset, the leaves regrow and a pair of ambulances clear up the two lanes
  *
@@ -20,6 +20,7 @@ import java.util.ArrayList;
  * removing all the pedestrians and vehicles that are within the explosion radius
  * 
  * Lane Change:
+ * The cars, trucks and ambulance change lanes.
  * The vehicle first checks if their speed has decreased by more than 1.5.
  * If so, the vehicle then finds out whether to switch down a lane or switch up based on its land number. Since my simulation only has two lanes other than the firetruck lane,
  * my program only checks whether it is on the middle lane or the bottom lane to determine whether the car should move up or down a lane.
@@ -281,7 +282,7 @@ public class VehicleWorld extends World
             int lane = Greenfoot.getRandomNumber(laneCount);
             //special lane for the firetruck
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
-                int getRidFire = Greenfoot.getRandomNumber(3);
+                int getRidFire = Greenfoot.getRandomNumber(4);
                 if (getRidFire == 0){
                     addObject(new FireTruck(laneSpawners[lane]),0,0);
                     siren.playLoop();
@@ -309,7 +310,7 @@ public class VehicleWorld extends World
         // Chance to spawn a Pedestrian
         if (Greenfoot.getRandomNumber(animalSpawn) == 0){
             int xSpawnLocation = Greenfoot.getRandomNumber(getWidth() - 100) + 100;
-            if (xSpawnLocation > getWidth()/2 -120 && xSpawnLocation < getWidth()/2 + 250){
+            if (xSpawnLocation > getWidth()/2 -150 && xSpawnLocation < getWidth()/2 + 250){
                 return;
             }
             boolean spawnAtTop = Greenfoot.getRandomNumber(3) == 0; //less animals
@@ -322,13 +323,7 @@ public class VehicleWorld extends World
                 } else {
                     addObject(new Deer(1), xSpawnLocation, TOP_SPAWN);
                 }
-            } /*else {
-                if (pedestrianType == 0) {
-                    addObject(new Monkey(-1), xSpawnLocation, BOTTOM_SPAWN);
-                } else {
-                    addObject(new Deer(-1), xSpawnLocation, BOTTOM_SPAWN);
-                }
-            }*/
+            }
         }
 
     }
