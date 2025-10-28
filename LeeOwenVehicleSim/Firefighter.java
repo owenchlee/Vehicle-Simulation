@@ -1,0 +1,98 @@
+import greenfoot.*;
+import java.util.ArrayList;
+/**
+ * the firefighter gets spawned next to the firetruck and shoots away all the water and then gets removed
+ */
+public class Firefighter extends Actor {
+    private boolean flipped = false;
+    private int shootCooldown = 0; // delay between shots
+    private int moved = 0;
+    private GreenfootSound[] waterSounds;
+    private int waterSoundsIndex;
+
+    public Firefighter() {
+        GreenfootImage img = new GreenfootImage("Firefighter.png");
+        img.scale(160, 200);
+        setImage(img);
+        waterSoundsIndex = 0;
+        waterSounds = new GreenfootSound[20];
+        for (int i = 0; i < waterSounds.length; i++){
+            waterSounds[i] = new GreenfootSound ("waterShot.mp3");
+        }
+        
+    }
+
+    public void act() {
+        if (getWorld() == null) return;
+
+        ArrayList<Fire> fires = (ArrayList<Fire>) getWorld().getObjects(Fire.class);
+
+        // stop if no fires remain
+        if (fires.isEmpty()) return;
+
+        Fire nearestFire = getNearestFire(fires);
+        if (nearestFire == null) return;
+
+        faceFire(nearestFire);
+        
+        //shoot if the cooldown is over
+        if (shootCooldown <= 0) {
+            shootWater(nearestFire);
+            waterSounds[waterSoundsIndex].play();
+            waterSoundsIndex++;
+            if (waterSoundsIndex > waterSounds.length-1){
+                waterSoundsIndex = 0;
+            }
+            shootCooldown = 40;
+        } else {
+            shootCooldown--;
+        }
+    }
+
+    private Fire getNearestFire(ArrayList<Fire> fires) {
+        Fire nearest = fires.get(0);
+        double nearestDistance = getDistanceTo(nearest);
+
+        for (Fire fire : fires) {
+            double distance = getDistanceTo(fire);
+            if (distance < nearestDistance) {
+                nearest = fire;
+                nearestDistance = distance;
+            }
+        }
+        return nearest;
+    }
+    
+    //use basic math theorem to find distances
+    private double getDistanceTo(Actor other) {
+        int dx = other.getX() - getX();
+        int dy = other.getY() - getY();
+        return Math.sqrt(dx * dx + dy * dy);
+    }
+
+    private void flipImage() {
+        GreenfootImage img = getImage();
+        img.mirrorHorizontally();
+        setImage(img);
+    }
+    
+    //always faces the direction the fire is 
+    private void faceFire(Fire fire) {
+        if (fire.getX() < getX() && !flipped) {
+            flipImage();
+            flipped = true;
+        } else if (fire.getX() > getX() && flipped) {
+            flipImage();
+            flipped = false;
+        }
+    }
+
+    //adds water object when shooting
+    private void shootWater(Fire fire) {
+        getWorld().addObject(new Water(fire), getX(), getY() - 60);
+    }
+    
+    public void reset(){
+        getWorld().removeObject(this);
+    }
+}

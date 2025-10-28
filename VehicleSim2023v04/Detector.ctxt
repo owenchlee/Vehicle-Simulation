@@ -1,8 +1,0 @@
-#BlueJ class context
-comment0.target=Detector
-comment0.text=\r\n\ The\ detector\ is\ instantiated\ to\ check\ for\ whether\ or\ not\ a\ lane\ is\ occupied\r\n
-comment1.params=width\ height
-comment1.target=Detector(int,\ int)
-comment2.params=
-comment2.target=boolean\ isEmpty()
-numComments=3
