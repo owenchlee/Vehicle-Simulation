@@ -1,5 +1,8 @@
-    import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+/**
+* Fire animation
+*/
 public class Fire extends Actor
 {
     private GreenfootImage[] fireFrames = new GreenfootImage[11];
@@ -9,6 +12,7 @@ public class Fire extends Actor
     int fireSize = Greenfoot.getRandomNumber(5); 
     
     public Fire() {
+        // creates random sized fire 
         for (int i = 0; i < fireFrames.length; i++) {
             fireFrames[i] = new GreenfootImage("Fire_" + i + ".png");
             if (fireSize == 0) {
@@ -37,6 +41,7 @@ public class Fire extends Actor
         
     }
     
+    //runs through array of images to produce a animation effect
     private void animateFire() {
         animationCounter++;
         if (animationCounter >= ANIMATION_SPEED) {
@@ -46,6 +51,7 @@ public class Fire extends Actor
         }
     }
     
+    //gets put out when touches water
     private void touchingWater(){
         if (getOneIntersectingObject(Water.class) != null){
             getWorld().removeObject(this);

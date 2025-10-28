@@ -1,14 +1,12 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import java.util.ArrayList;
 
 /**
- * The Truck subclass represents a larget passenger vehicle.
- * trucks have moderate speed and will knock down pedestrians when they collide.
- *
- * @author Jordan Cohen
- * @version 2023
+ * The truck is a nice vehicle that saves all the monkeys it encounters
  */
 public class Truck extends Vehicle
 {
+    private int pauseCount = 0;
     
     public Truck(VehicleSpawner origin) {
         super(origin); // call the superclass' constructor
@@ -24,6 +22,19 @@ public class Truck extends Vehicle
 
     public void act()
     {
+        if (getWorld() == null){
+            return;
+        }
+        
+        if (pauseCount > 0){
+            pauseCount --;
+            speed = 0;
+            return;
+        } else{
+            speed = maxSpeed;
+            moving = true;
+        }
+        
         super.act();
         // make car different - put code here
     }
@@ -32,9 +43,24 @@ public class Truck extends Vehicle
      * When a Truck hit's a Pedestrian, it should knock it over
      */
     public boolean checkHitPedestrian () {
+        //saves the monkey whether they are alive or ran over by a car
+        ArrayList<Monkey> monkeys = (ArrayList<Monkey>) getIntersectingObjects(Monkey.class);
+        
+        if (monkeys != null && !monkeys.isEmpty()){
+            for (Monkey m : monkeys){
+                getWorld().removeObject(m);
+            }
+            
+            pauseCount = 60;
+            speed = 0;
+            moving = false;
+            return true;
+        }
+        
+        //if no monkeys it acts same as the car and drives forwards
         int frontX = (int)speed + getImage().getWidth()/2;
         int heightSpacing = (getImage().getHeight() / 2) - 25;
-    
+        
         Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
         if (pCenter != null && pCenter.isAwake()) {
             pCenter.knockDown();
@@ -58,6 +84,4 @@ public class Truck extends Vehicle
     
         return false;
     }
-    
-    
 }

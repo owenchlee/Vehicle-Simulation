@@ -1,8 +1,8 @@
 #BlueJ class context
 comment0.target=Smoke
+comment0.text=\n\ This\ is\ the\ world\ wide\ effect\ that\ appears\ when\ the\ world\ is\ on\ fire\n
 comment1.params=
 comment1.target=Smoke()
-comment1.text=\n\ Constructor\ for\ class\ Storm\n
 comment2.params=
 comment2.target=void\ act()
 comment3.params=

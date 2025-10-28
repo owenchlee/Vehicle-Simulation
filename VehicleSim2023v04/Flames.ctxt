@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=Flames
+comment0.text=\n\ Flames\ is\ what\ creates\ all\ the\ flames\n\ It\ spawns\ flames\ based\ on\ its\ initial\ position\ and\ the\ spawning\ is\ faster\ over\ time\n
 comment1.params=yLimit
 comment1.target=Flames(int)
 comment2.params=

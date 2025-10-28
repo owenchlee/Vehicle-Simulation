@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Monkey here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Monkeys cross the road and 1 in 10 are supermonkeys that walk faster
  */
 public class Monkey extends Pedestrian
 {
@@ -18,6 +15,9 @@ public class Monkey extends Pedestrian
     @Override
     public void act() {
         super.act();  // reuse general pedestrian behavior
-        // Additional behavior specific to Person, if any
+        int superMonkey = Greenfoot.getRandomNumber(5);
+        if (superMonkey == 0){
+            speed = speed * 2;
+        }
     }
 }

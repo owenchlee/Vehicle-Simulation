@@ -1,5 +1,9 @@
 import greenfoot.*;
 
+/**
+ * Turns towards the fire and moves towards it to take it out
+ */
+
 public class Water extends Actor {
     private Fire target;
 

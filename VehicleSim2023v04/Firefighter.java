@@ -1,6 +1,8 @@
 import greenfoot.*;
 import java.util.ArrayList;
-
+/**
+ * the firefighter gets spawned next to the firetruck and shoots away all the water and then gets removed
+ */
 public class Firefighter extends Actor {
     private boolean flipped = false;
     private int shootCooldown = 0; // delay between shots
@@ -32,7 +34,8 @@ public class Firefighter extends Actor {
         if (nearestFire == null) return;
 
         faceFire(nearestFire);
-
+        
+        //shoot if the cooldown is over
         if (shootCooldown <= 0) {
             shootWater(nearestFire);
             waterSounds[waterSoundsIndex].play();
@@ -59,7 +62,8 @@ public class Firefighter extends Actor {
         }
         return nearest;
     }
-
+    
+    //use basic math theorem to find distances
     private double getDistanceTo(Actor other) {
         int dx = other.getX() - getX();
         int dy = other.getY() - getY();
@@ -71,7 +75,8 @@ public class Firefighter extends Actor {
         img.mirrorHorizontally();
         setImage(img);
     }
-
+    
+    //always faces the direction the fire is 
     private void faceFire(Fire fire) {
         if (fire.getX() < getX() && !flipped) {
             flipImage();
@@ -82,6 +87,7 @@ public class Firefighter extends Actor {
         }
     }
 
+    //adds water object when shooting
     private void shootWater(Fire fire) {
         getWorld().addObject(new Water(fire), getX(), getY() - 60);
     }

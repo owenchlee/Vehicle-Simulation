@@ -3,13 +3,9 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 /**
  * A Pedestrian that tries to walk across the street.
  * Pedestrians move vertically across lanes, avoiding vehicles when possible.
- * They can be knocked down by vehicles and later healed.
- *
- * NOTE: This class is designed to be converted into a superclass for different
- * types of pedestrians (e.g., Person, Animal, etc.) as part of the student assignment.
- *
- * @author Jordan Cohen
- * @version 2023
+ * They can be knocked down by vehicles and also healed
+ * In my simulation, these are the deer and monkey
+ * 
  */
 public abstract class Pedestrian extends SuperSmoothMover
 {
@@ -18,6 +14,7 @@ public abstract class Pedestrian extends SuperSmoothMover
     protected int direction; // direction is always -1 or 1, for moving down or up, respectively
     protected boolean awake;
     protected boolean isPicked = false;
+    
     public Pedestrian(int direction) {
         // choose a random speed
         maxSpeed = Math.random() * 2 + 1;
@@ -48,6 +45,7 @@ public abstract class Pedestrian extends SuperSmoothMover
         }
     }
     
+    // allow the speed to be changed by the smoke
     public void setSpeedMultiplier(double multiplier) {
         speed = maxSpeed * multiplier;
     }

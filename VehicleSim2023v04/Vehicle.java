@@ -27,7 +27,8 @@ public abstract class Vehicle extends SuperSmoothMover
 
     private GreenfootSound honk;
     private GreenfootSound vroom;
-    private boolean slowedBefore = false;
+    private boolean slowedBefore = false; //isnt used by subclasses
+    private boolean honked = false;
     
 
     public Vehicle (VehicleSpawner origin) {
@@ -61,6 +62,7 @@ public abstract class Vehicle extends SuperSmoothMover
         vroom = new GreenfootSound ("passingCar.mp3");
     }
     
+    //allow maxSpeed to be chaged by the smoke
     public void setSpeedMultiplier(double multiplier) {
         if (!slowedBefore){
             maxSpeed = maxSpeed * multiplier;
@@ -73,7 +75,8 @@ public abstract class Vehicle extends SuperSmoothMover
     {
         int frontX = direction * ((int)speed + getImage().getWidth() / 2);
         int halfHeight = getImage().getHeight() / 2;
-    
+        
+        //uses three points to check for collision
         Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
         if (pCenter != null && pCenter.isAwake()) {
             pCenter.knockDown();
@@ -115,8 +118,8 @@ public abstract class Vehicle extends SuperSmoothMover
      * - subclass' act() method can invoke super.act() to call this, as is demonstrated here.
      */
     public void act () {
-
         drive(); 
+        
         if (!checkHitPedestrian()){
             repelPedestrians();
         }
@@ -236,10 +239,13 @@ public abstract class Vehicle extends SuperSmoothMover
         double otherVehicleSpeed = -1;
         int frontX = (int)speed + getImage().getWidth()/2;
         
-        //laneSwitch
+        //lane switch when the speed decreases by too much (described in depth at the top of VehicleWorld)
         if (speedChange > 1.5){
-            honk.play();
-            Detector zone = new Detector(getImage().getWidth() + 50, getImage().getHeight());
+            if (!honked){
+                honk.play();
+                honked = true;
+            }
+            Detector zone = new Detector(getImage().getWidth() + 50, getImage().getHeight()); //create detector that can be added
             if (myLaneNumber == 1 && !switchedLanes){
                 getWorld().addObject(zone, getX(), getY() + (VehicleWorld.LANE_HEIGHT + 12));
                 
@@ -297,6 +303,7 @@ public abstract class Vehicle extends SuperSmoothMover
         return 0;
     }
     
+    //chance to trigger explosion if a deer is hit
     protected void checkHitDeer(Pedestrian p){
         if (p instanceof Deer){
             int explode = Greenfoot.getRandomNumber(10);

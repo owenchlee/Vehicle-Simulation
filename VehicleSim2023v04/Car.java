@@ -1,11 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * The Car subclass represents a standard passenger vehicle.
- * Cars have moderate speed and will knock down pedestrians when they collide.
- *
- * @author Jordan Cohen
- * @version 2023
+ * Most basic vehicle that has no special interaction
  */
 public class Car extends Vehicle
 {
@@ -30,7 +26,8 @@ public class Car extends Vehicle
     public boolean checkHitPedestrian () {
         int frontX = (int)speed + getImage().getWidth()/2;
         int heightSpacing = (getImage().getHeight() / 2) - 15;
-    
+        
+        //three point collision detection
         Pedestrian pCenter = (Pedestrian)getOneObjectAtOffset(frontX, 0, Pedestrian.class);
         if (pCenter != null && pCenter.isAwake()) {
             pCenter.knockDown();

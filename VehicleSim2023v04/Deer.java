@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Deer here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Deer cross the road and also make noise occasionally
  */
 
 public class Deer extends Pedestrian
@@ -22,10 +19,9 @@ public class Deer extends Pedestrian
     @Override
     public void act() {
         super.act();  // reuse general pedestrian behavior
-        int chanceToCall = Greenfoot.getRandomNumber(10000);
+        int chanceToCall = Greenfoot.getRandomNumber(6000);
         if (chanceToCall == 0 && !call.isPlaying()){
             call.play();
         } 
-        // Additional behavior specific to Person, if any
     }
 }

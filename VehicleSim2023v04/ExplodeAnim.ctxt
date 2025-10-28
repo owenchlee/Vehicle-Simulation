@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=ExplodeAnim
-comment0.text=\n\ Write\ a\ description\ of\ class\ Smoker\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ animation\ that\ appears\ when\ a\ explosion\ happens\n\ Uses\ the\ built\ in\ gif\ class\ to\ work\n
 comment1.params=
 comment1.target=ExplodeAnim()
 comment2.params=

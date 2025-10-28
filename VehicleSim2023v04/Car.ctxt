@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Car
-comment0.text=\n\ The\ Car\ subclass\ represents\ a\ standard\ passenger\ vehicle.\n\ Cars\ have\ moderate\ speed\ and\ will\ knock\ down\ pedestrians\ when\ they\ collide.\n\n\ @author\ Jordan\ Cohen\n\ @version\ 2023\n
+comment0.text=\n\ Most\ basic\ vehicle\ that\ has\ no\ special\ interaction\n
 comment1.params=origin
 comment1.target=Car(VehicleSpawner)
 comment2.params=

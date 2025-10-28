@@ -1,11 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Smoker here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * animation that appears when a explosion happens
+ * Uses the built in gif class to work
  */
+
 public class ExplodeAnim extends Actor
 
 {
@@ -22,7 +21,7 @@ public class ExplodeAnim extends Actor
     public void act()
     {
         actCount--;
-        // System.out.println(getX()); // for testing
+    
         if (actCount == 0){
             getWorld().removeObject(this);
             return;

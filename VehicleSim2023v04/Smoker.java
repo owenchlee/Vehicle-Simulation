@@ -1,10 +1,8 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Smoker here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * The smokers start each cycle by walking into the forest with their cigarette
+ * This class also uses functionality from the gif class
  */
 public class Smoker extends Pedestrian
 {
@@ -22,8 +20,8 @@ public class Smoker extends Pedestrian
     private GifImage smokeMan = new GifImage("smoker.gif");
     public void act()
     {
-        setImage(smokeMan.getCurrentImage());
-        smoke.play();
+        setImage(smokeMan.getCurrentImage()); //change image during acts to create animation
+        smoke.play(); //plays smoking sound when the smoker is present
         super.act();
     }
 }

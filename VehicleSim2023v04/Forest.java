@@ -1,5 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
+/**
+ * The forest class adds all the trees into the world when the program begins
+ */
 public class Forest extends Actor
 {
     private int yLimit;
@@ -12,9 +14,10 @@ public class Forest extends Actor
 
     private void createForest()
     {
+        //check if the world exists yet
         World world = getWorld();
         if (world == null) {
-            return;  // Not yet added to world, cannot add trees
+            return;  
         }
         
         if (hasCreated){
@@ -31,7 +34,7 @@ public class Forest extends Actor
             world.addObject(new Tree(), x, y);
         }
     }
-
+    
     @Override
     protected void addedToWorld(World world)
     {

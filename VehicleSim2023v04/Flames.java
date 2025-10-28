@@ -1,17 +1,21 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+/**
+ * Flames is what creates all the flames
+ * It spawns flames based on its initial position and the spawning is faster over time
+ */
 public class Flames extends Actor
 {
     private int yLimit;
     private boolean firstFire = false;
-    private int totalFlames = 60;    // total flames to spawn
-    private int createdFlames = 0;   // flames spawned so far
-    private int actCount = 0;           // counts act() cycles
-    private int interval = 180;      // starting interval between spawns
+    private int totalFlames = 60;    
+    private int createdFlames = 0;   
+    private int actCount = 0;           
+    private int interval = 180;      // starting interval between fire spwaning
     private int minInterval = 15;    // minimum interval
     private double decay = 0.95;     // interval decreases by 5% each spawn
-    private int originX = -1;        // original X of the first flame
-    private int spreadRange = 150;    // how far flames can spread horizontally from origin
+    private int originX = -1;        // X value of the first flame
+    private int spreadRange = 150;   // how far flames can spread horizontally from the first one
 
     public Flames(int yLimit)
     {

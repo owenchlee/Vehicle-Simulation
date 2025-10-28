@@ -1,5 +1,9 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
+/**
+ * Tree is just the images that make up the forest, the type of tree is randomized and categorized into three sizes
+ */
+
 public class Tree extends Actor
 {
     private boolean onFire = false;
@@ -63,6 +67,7 @@ public class Tree extends Actor
         }
     }
     
+    //when reset the trees have a chance to regain their leaves
     public void reset(){
         int chanceForLeaves = Greenfoot.getRandomNumber(500);
         if (chanceForLeaves == 0){

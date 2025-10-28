@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Smoker
-comment0.text=\n\ Write\ a\ description\ of\ class\ Smoker\ here.\n\ \n\ @author\ (your\ name)\ \n\ @version\ (a\ version\ number\ or\ a\ date)\n
+comment0.text=\n\ The\ smokers\ start\ each\ cycle\ by\ walking\ into\ the\ forest\ with\ their\ cigarette\n\ This\ class\ also\ uses\ functionality\ from\ the\ gif\ class\n
 comment1.params=direction
 comment1.target=Smoker(int)
 comment2.params=

@@ -81,7 +81,7 @@ import java.util.ArrayList;
  * https://mixkit.co/free-sound-effects/ 
  * 
  * Known Bugs:
- * 
+ * World doesn't reset properly (not all pedestrians are removed) if a lane switch causes both ambulance to be on a single lane.
  * 
  * */
  
@@ -185,11 +185,12 @@ public class VehicleWorld extends World
         actCount++;
         spawnSmoker();
         
+        //Check if first smoker went into the forest
         ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
         
         if (!smokers.isEmpty())
         {
-            Smoker s = smokers.get(0); // check the first smoker
+            Smoker s = smokers.get(0);
             if (s.getY() < 205) 
             {
                 onFire = true;
@@ -221,6 +222,7 @@ public class VehicleWorld extends World
         zSort ((ArrayList<Actor>)(getObjects(Actor.class)), this);
     }
     
+    //Play/stop sounds when program is run or paused
     public void started(){
         backgroundSound.playLoop();
     }
@@ -232,6 +234,7 @@ public class VehicleWorld extends World
         siren.stop();
     }
     
+    //method used to reset the world for each loop
     public void resetWorld(){
         resetCount++;
         for (Object obj : getObjects(FireTruck.class)) {
@@ -254,25 +257,29 @@ public class VehicleWorld extends World
         }
     }
     
+    //two ambulances clear the lanes and heals all the pedestrians
     public void resetLanes(){
         addObject(new Ambulance(laneSpawners[1]), 0, 0);
         addObject(new Ambulance(laneSpawners[2]), 0, 0);
     }
     
+    //checks if there is fire in the world
     public boolean isOnFire(){
         return !getObjects(Fire.class).isEmpty();
     }
     
     private void spawn () {
+        //spawn world effect
         if (actCount % 720 == 0 && !smoky){
             addObject(new Smoke(), 512, 400);
             smokeHowl.play();
             smoky = true;
         }
+        
         // Chance to spawn a vehicle
         if (Greenfoot.getRandomNumber (laneCount * 40) == 0){
             int lane = Greenfoot.getRandomNumber(laneCount);
-            
+            //special lane for the firetruck
             if (lane == SPECIAL_LANE_INDEX && !fireTruckExists){
                 int getRidFire = Greenfoot.getRandomNumber(3);
                 if (getRidFire == 0){
@@ -326,6 +333,8 @@ public class VehicleWorld extends World
 
     }
     
+    //respawns smoker if act count is 0, each reset sets the act count to -500
+    //some time is passed after the reset before it spawns
     private void spawnSmoker(){
         if (actCount == 0){
             addObject(new Smoker(-1), 200, BOTTOM_SPAWN);

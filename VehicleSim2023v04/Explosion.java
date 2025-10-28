@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 /**
- * Write a description of class Explosion here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * explosion which is the local collision based effect
  */
 public class Explosion extends Effect
 {
@@ -16,7 +13,7 @@ public class Explosion extends Effect
         myDiameter = VehicleWorld.LANE_HEIGHT * 4;
         drawImage();
         actCount = 200;
-        totalFadeTime = 50;
+        fadeTime = 50;
         explode = new GreenfootSound ("carExplode.mp3");
     }
     
@@ -31,7 +28,9 @@ public class Explosion extends Effect
         if (getWorld() == null){
             return;
         }
-            
+        
+        //removes all pedestrians and vehicles within its range
+        
         ArrayList<Pedestrian> peds = (ArrayList<Pedestrian>)getObjectsInRange(myDiameter/2, Pedestrian.class);
         for (Pedestrian p : peds){
             getWorld().removeObject(p);

@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=Firefighter
+comment0.text=\n\ the\ firefighter\ gets\ spawned\ next\ to\ the\ firetruck\ and\ shoots\ away\ all\ the\ water\ and\ then\ gets\ removed\n
 comment1.params=
 comment1.target=Firefighter()
 comment2.params=

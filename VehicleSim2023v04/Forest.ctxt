@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=Forest
+comment0.text=\n\ The\ forest\ class\ adds\ all\ the\ trees\ into\ the\ world\ when\ the\ program\ begins\n
 comment1.params=yLimit
 comment1.target=Forest(int)
 comment2.params=

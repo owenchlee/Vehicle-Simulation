@@ -1,5 +1,6 @@
 #BlueJ class context
 comment0.target=FireTruck
+comment0.text=\n\ The\ firetruck\ only\ appears\ when\ there\ is\ a\ fire\ and\ stops\ in\ the\ middle\ to\ allow\ the\ firefighter\ to\ take\ out\ the\ fire\n
 comment1.params=origin
 comment1.target=FireTruck(VehicleSpawner)
 comment2.params=
@@ -10,7 +11,6 @@ comment4.params=
 comment4.target=void\ spawnFirefighter()
 comment5.params=other
 comment5.target=double\ getDistanceTo(greenfoot.Actor)
-comment5.text=Helper\ method\ to\ calculate\ distance\ to\ another\ actor
 comment6.params=
 comment6.target=boolean\ checkHitPedestrian()
 comment7.params=

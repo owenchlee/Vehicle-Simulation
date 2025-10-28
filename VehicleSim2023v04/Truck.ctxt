@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Truck
-comment0.text=\n\ The\ Truck\ subclass\ represents\ a\ larget\ passenger\ vehicle.\n\ trucks\ have\ moderate\ speed\ and\ will\ knock\ down\ pedestrians\ when\ they\ collide.\n\n\ @author\ Jordan\ Cohen\n\ @version\ 2023\n
+comment0.text=\n\ The\ truck\ is\ a\ nice\ vehicle\ that\ saves\ all\ the\ monkeys\ it\ encounters\n
 comment1.params=origin
 comment1.target=Truck(VehicleSpawner)
 comment2.params=
