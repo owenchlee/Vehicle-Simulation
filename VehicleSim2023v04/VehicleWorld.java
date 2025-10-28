@@ -3,31 +3,60 @@ import java.util.Collections;
 import java.util.ArrayList;
 /**
  * 
- * Description
- * Works cited and known bugs
- * <h1>The new and vastly improved 2022 Vehicle Simulation Assignment.</h1>
- * <p> This is the first redo of the 8 year old project. Lanes are now drawn dynamically, allowing for
- *     much greater customization. Pedestrians can now move in two directions. The graphics are better
- *     and the interactions smoother.</p>
- * <p> The Pedestrians are not as dumb as before (they don't want straight into Vehicles) and the Vehicles
- *     do a somewhat better job detecting Pedestrians.</p>
+ * Description:
+ * My simulation takes place in a forest and it warns its viewers of repeated mistake of smoking or starting fires in forests that lead to wildfire.
+ * At the start, a man who is smoking walks into the forest and it lights on fire over time
+ * A firetruck will come and a firefighter will exit the truck to get rid of the fire
+ * During the fire, a layer of smoke will arise and monkeys and deer try to run away from the burning forest 
+ * When the fire is all put out, the firetruck leaves and the cycle restarts again, highlighting the repetitive nature of this mistake
+ * When the simulation is reset, the leaves regrow and a pair of ambulances clear up the two lanes
+ *
  * 
- * Version Notes - Feb 2023
- * --> Includes grid <--> lane conversion method
- * --> Now starts with 1-way, 5 lane setup (easier)
+ * World Effect:
+ * My world effect is a layer of smoke. It causes animals to run faster as they panick and it causes cars to drive slower as they cant see well.
  * 
- * V2023_021
- * --> Improved Vehicle Repel (still work in progress)
- * --> Implemented Z-sort, disabled paint order between Pedestrians and Vehicles (looks much better now)
- * --> Implemented lane-based speed modifiers for max speed
+ * Local Effect:
+ * My local effect is a collision based effect that happens when a Car or Truck hits a deer. When this happens, there is a 1 in 10 chance that an explosion will be caused, 
+ * removing all the pedestrians and vehicles that are within the explosion radius
  * 
- * V2023_04
- * --> Repel has been re-imagined and now takes the sizes of Actors into consideration better, and also only
- *     moves Actors verically. (The code to move in both dimensions is there and works but it's commented out
- *     because this is the effect I was going for).
- * --> TODO -- Improve flow to avoid Removed From World errors when a Vehicle calls super.act() and is removed there.
+ * Lane Change:
+ * The vehicle first checks if their speed has decreased by more than 1.5.
+ * If so, the vehicle then finds out whether to switch down a lane or switch up based on its land number. Since my simulation only has two lanes other than the firetruck lane,
+ * my program only checks whether it is on the middle lane or the bottom lane to determine whether the car should move up or down a lane.
+ * Then, the actor creates a detector, a bit wider than the vehicle, that is added into the space the vehicle wants to occupy.
+ * If the detector doesn't intersect with any other vehicle, the lane switch is performed.
+ * After the lane switch, the detector is removed.
  * 
- */
+ * Works Cited:
+ * Images:
+ * Monkey
+ * https://www.shutterstock.com/image-vector/vector-illustration-cartoon-monkey-pixel-design-392463175  
+Deer
+https://opengameart.org/content/deer 
+Trees
+https://www.istockphoto.com/vector/different-trees-pixel-art-icon-set-forest-flora-species-logo-collection-8-bit-sprite-gm1395274243-450441411 
+Background
+https://www.reddit.com/r/PixelArt/comments/6n71el/cc_newbie_oc_pixel_art_grass/ 
+Tow Truck
+https://www.reddit.com/r/PixelCarRacer/comments/va4orr/tow_truck_conceptfreetouse_pngswipe/ 
+Ambulance
+https://minzinn.itch.io/pixelvehicles/devlog/572222/v113 
+Fire Truck
+https://limezu.itch.io/modernexteriors/devlog/611520/242th-update-fire-station-6 
+Fire
+https://www.vecteezy.com/vector-art/24393823-cartoon-fire-flame-sprite-animation-bonfire-burn 
+Smoker
+https://lospec.com/gallery/purplepill/smoke-guy 
+Firefighter
+https://www.shutterstock.com/es/image-vector/firefighter-extinguishes-fire-hose-his-hands-1378685384 
+Water
+https://www.slynyrd.com/blog/2018/10/12/pixelblog-10-water-in-motion 
+Explosion
+https://aminoapps.com/c/pixel-art/page/blog/explosion-concept-animation/wKgQ_DqJiouWp8wwdWG2YL0Q1GP2Zr2Gemn 
+
+
+ * */
+ 
 public class VehicleWorld extends World
 {
     private GreenfootImage background;

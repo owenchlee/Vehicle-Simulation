@@ -61,7 +61,7 @@ public class Smoke extends Effect
             if (v instanceof FireTruck){
                 return;
             }
-            v.setSpeedMultiplier(0.5);
+            v.setSpeedMultiplier(0.8);
         }
     }
 
