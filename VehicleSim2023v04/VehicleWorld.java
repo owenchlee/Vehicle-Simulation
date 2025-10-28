@@ -28,33 +28,61 @@ import java.util.ArrayList;
  * After the lane switch, the detector is removed.
  * 
  * Works Cited:
+ * 
  * Images:
  * Monkey
  * https://www.shutterstock.com/image-vector/vector-illustration-cartoon-monkey-pixel-design-392463175  
-Deer
-https://opengameart.org/content/deer 
-Trees
-https://www.istockphoto.com/vector/different-trees-pixel-art-icon-set-forest-flora-species-logo-collection-8-bit-sprite-gm1395274243-450441411 
-Background
-https://www.reddit.com/r/PixelArt/comments/6n71el/cc_newbie_oc_pixel_art_grass/ 
-Tow Truck
-https://www.reddit.com/r/PixelCarRacer/comments/va4orr/tow_truck_conceptfreetouse_pngswipe/ 
-Ambulance
-https://minzinn.itch.io/pixelvehicles/devlog/572222/v113 
-Fire Truck
-https://limezu.itch.io/modernexteriors/devlog/611520/242th-update-fire-station-6 
-Fire
-https://www.vecteezy.com/vector-art/24393823-cartoon-fire-flame-sprite-animation-bonfire-burn 
-Smoker
-https://lospec.com/gallery/purplepill/smoke-guy 
-Firefighter
-https://www.shutterstock.com/es/image-vector/firefighter-extinguishes-fire-hose-his-hands-1378685384 
-Water
-https://www.slynyrd.com/blog/2018/10/12/pixelblog-10-water-in-motion 
-Explosion
-https://aminoapps.com/c/pixel-art/page/blog/explosion-concept-animation/wKgQ_DqJiouWp8wwdWG2YL0Q1GP2Zr2Gemn 
-
-
+ * Deer
+ * https://opengameart.org/content/deer 
+ * Trees
+ * https://www.istockphoto.com/vector/different-trees-pixel-art-icon-set-forest-flora-species-logo-collection-8-bit-sprite-gm1395274243-450441411 
+ * Background
+ * https://www.reddit.com/r/PixelArt/comments/6n71el/cc_newbie_oc_pixel_art_grass/ 
+ * Tow Truck
+ * https://www.reddit.com/r/PixelCarRacer/comments/va4orr/tow_truck_conceptfreetouse_pngswipe/ 
+ * Ambulance
+ * https://minzinn.itch.io/pixelvehicles/devlog/572222/v113 
+ * Fire Truck
+ * https://limezu.itch.io/modernexteriors/devlog/611520/242th-update-fire-station-6 
+ * Fire
+ * https://www.vecteezy.com/vector-art/24393823-cartoon-fire-flame-sprite-animation-bonfire-burn 
+ * Smoker
+ * https://lospec.com/gallery/purplepill/smoke-guy 
+ * Firefighter
+ * https://www.shutterstock.com/es/image-vector/firefighter-extinguishes-fire-hose-his-hands-1378685384 
+ * Water
+ * https://www.slynyrd.com/blog/2018/10/12/pixelblog-10-water-in-motion 
+ * Explosion
+ * https://aminoapps.com/c/pixel-art/page/blog/explosion-concept-animation/wKgQ_DqJiouWp8wwdWG2YL0Q1GP2Zr2Gemn 
+ * 
+ * Sounds:
+ * 
+ * Ambient Soundscape
+ * https://sound-effects.bbcrewind.co.uk/?authuser=0 
+ * Fire Crackle
+ * https://sound-effects.bbcrewind.co.uk/?authuser=0 
+ * Car Explosion
+ * https://mixkit.co/free-sound-effects/ 
+ * Car Horn
+ * https://mixkit.co/free-sound-effects/ 
+ * Deer Call 1 & 2
+ * https://mixkit.co/free-sound-effects/ 
+ * Deer Walk
+ * https://mixkit.co/free-sound-effects/ 
+ * Car Vroom
+ * https://mixkit.co/free-sound-effects/ 
+ * Smoke Howl
+ * https://mixkit.co/free-sound-effects/ 
+ * Smoking Person
+ * https://mixkit.co/free-sound-effects/ 
+ * Siren
+ * https://mixkit.co/free-sound-effects/ 
+ * Water
+ * https://mixkit.co/free-sound-effects/ 
+ * 
+ * Known Bugs:
+ * 
+ * 
  * */
  
 public class VehicleWorld extends World
