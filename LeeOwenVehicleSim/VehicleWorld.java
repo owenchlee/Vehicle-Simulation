@@ -206,7 +206,7 @@ public class VehicleWorld extends World
             fireCrackle.playLoop();
             resetCount = 0;
             resetedLanes = false;
-        } else if (!isOnFire()){
+        } else {
             onFire = false;
             fireCrackle.stop();
             smokeHowl.stop();
