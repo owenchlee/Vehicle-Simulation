@@ -185,7 +185,7 @@ public class VehicleWorld extends World
         spawnSmoker();
         
         //Check if first smoker went into the forest
-        ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
+        ArrayList<Smoker> smokers = (ArrayList<Smoker>) getObjects(Smoker.class);
         
         if (!smokers.isEmpty())
         {
