@@ -39,6 +39,7 @@ public class Tree extends Actor
     public void act()
     {
         actCount++;
+        if (!onFire && getWorld().getObjects(Fire.class).isEmpty()) return; // nothing can ignite it
         Fire fire = (Fire) getOneIntersectingObject(Fire.class);
         // check if tree is on fire
         if (onFire && fire != null)
