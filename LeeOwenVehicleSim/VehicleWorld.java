@@ -99,6 +99,7 @@ public class VehicleWorld extends World
     public static final int TOP_SPAWN = 190; // Pedestrians who spawn on top
     public static final int BOTTOM_SPAWN = 705; // Pedestrians who spawn on the bottom
     public static final int LANE_HEIGHT = 90;
+    public static final int LANE_PITCH = LANE_HEIGHT + 10; // lane height + spaceBetweenLanes (10)
 
     //set lane for only firetruck
     private static final int SPECIAL_LANE_INDEX = 0;

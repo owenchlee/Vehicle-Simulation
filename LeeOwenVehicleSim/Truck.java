@@ -30,7 +30,7 @@ public class Truck extends Vehicle
             pauseCount --;
             speed = 0;
             return;
-        } else{
+        } else if (!moving){ // pause just ended; otherwise keep speed so Vehicle.drive() sees the slowdown
             speed = maxSpeed;
             moving = true;
         }
