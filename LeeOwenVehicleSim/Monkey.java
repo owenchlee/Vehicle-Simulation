@@ -12,12 +12,21 @@ public class Monkey extends Pedestrian
         setImage(img);
     }
 
+    // decided once: 1 in 10 monkeys are supermonkeys with a fixed 2x speed bonus
+    private final double bonus = (Greenfoot.getRandomNumber(10) == 0) ? 2 : 1;
+
+    {
+        speed = maxSpeed * bonus;
+    }
+
     @Override
-    public void act() {
-        super.act();  // reuse general pedestrian behavior
-        int superMonkey = Greenfoot.getRandomNumber(5);
-        if (superMonkey == 0){
-            speed = speed * 2;
-        }
+    public void setSpeedMultiplier(double multiplier) {
+        super.setSpeedMultiplier(multiplier * bonus);
+    }
+
+    @Override
+    public void healMe() {
+        super.healMe();
+        speed = maxSpeed * bonus;
     }
 }
