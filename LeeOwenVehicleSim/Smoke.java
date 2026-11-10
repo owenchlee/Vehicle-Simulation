@@ -57,7 +57,7 @@ public class Smoke extends Effect
         ArrayList<Vehicle> vehicle = (ArrayList<Vehicle>)getIntersectingObjects(Vehicle.class);
         for (Vehicle v : vehicle){
             if (v instanceof FireTruck){
-                return;
+                continue;
             }
             v.setSpeedMultiplier(0.8);
         }
