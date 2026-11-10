@@ -258,8 +258,8 @@ public class VehicleWorld extends World
     
     //two ambulances clear the lanes and heals all the pedestrians
     public void resetLanes(){
-        addObject(new Ambulance(laneSpawners[1]), 0, 0);
-        addObject(new Ambulance(laneSpawners[2]), 0, 0);
+        addObject(new Ambulance(laneSpawners[1]).stayInLane(), 0, 0);
+        addObject(new Ambulance(laneSpawners[2]).stayInLane(), 0, 0);
     }
     
     //checks if there is fire in the world
