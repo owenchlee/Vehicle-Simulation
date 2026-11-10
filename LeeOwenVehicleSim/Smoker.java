@@ -10,14 +10,19 @@ public class Smoker extends Pedestrian
     
     public Smoker (int direction){
         super(direction);
-        for (GreenfootImage frame : smokeMan.getImages()) {
-            frame.scale(80, 80); // scale every frame in the GIF
-        }
         smoke = new GreenfootSound ("smoking.mp3");
         smoke.setVolume(30);
     }
     
-    private GifImage smokeMan = new GifImage("smoker.gif");
+    private static GifImage base;
+    private GifImage smokeMan = copyOfBase(); // decode and scale once, share frames
+    private static GifImage copyOfBase() {
+        if (base == null) {
+            base = new GifImage("smoker.gif");
+            for (GreenfootImage frame : base.getImages()) frame.scale(80, 80);
+        }
+        return new GifImage(base);
+    }
     public void act()
     {
         setImage(smokeMan.getCurrentImage()); //change image during acts to create animation

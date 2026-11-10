@@ -63,7 +63,14 @@ public class Smoke extends Effect
         }
     }
 
+    private static GreenfootImage base;
+
     private void drawimage() {
+        if (base != null) { // own copy: fadeOut changes transparency per instance
+            image = new GreenfootImage(base);
+            setImage(image);
+            return;
+        }
         image = new GreenfootImage(2048, 800);
         image.setColor(new Color(80, 80, 80, 40)); // gray background
         image.fill();
@@ -77,6 +84,7 @@ public class Smoke extends Effect
             image.fillOval(randX, randY, randSize, randSize);
         }
     
+        base = new GreenfootImage(image);
         setImage(image);
     }
 
