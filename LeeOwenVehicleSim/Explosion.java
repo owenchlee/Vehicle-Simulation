@@ -51,7 +51,8 @@ public class Explosion extends Effect
         image = new GreenfootImage (myDiameter, myDiameter);
         image.setColor (new Color (190, 40, 0));
         image.fillOval(0, 0, myDiameter-2, myDiameter -2);
-        image.setTransparency (50);
+        startOpacity = 50;
+        image.setTransparency (startOpacity);
         setImage(image);
     }
 }
