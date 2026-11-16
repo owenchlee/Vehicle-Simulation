@@ -185,7 +185,7 @@ public class VehicleWorld extends World
         spawnSmoker();
         
         //Check if first smoker went into the forest
-        ArrayList<Smoker> smokers = new ArrayList<Smoker>(getObjects(Smoker.class));
+        ArrayList<Smoker> smokers = (ArrayList<Smoker>) getObjects(Smoker.class);
         
         if (!smokers.isEmpty())
         {
@@ -206,7 +206,7 @@ public class VehicleWorld extends World
             fireCrackle.playLoop();
             resetCount = 0;
             resetedLanes = false;
-        } else if (!isOnFire()){
+        } else {
             onFire = false;
             fireCrackle.stop();
             smokeHowl.stop();
@@ -518,6 +518,14 @@ public class VehicleWorld extends World
         // Sort farthest-back (smallest Y) first.
         java.util.Collections.sort(list);
     
+        // Skip the remove/re-add when the sorted actor sequence matches what we painted last time in this world.
+        boolean same = lastSortWorld == world && lastSortOrder.size() == list.size();
+        for (int i = 0; same && i < list.size(); i++) same = lastSortOrder.get(i) == list.get(i).actor;
+        if (same) return;
+        lastSortWorld = world;
+        lastSortOrder.clear();
+        for (Entry e : list) lastSortOrder.add(e.actor);
+
         // Re-add in paint order with consistent rounding, then restore precise coords.
         for (Entry e : list) {
             // Remove if currently in any world to ensure paint-order reset
@@ -535,6 +543,9 @@ public class VehicleWorld extends World
             }
         }
     }
+
+    private static greenfoot.World lastSortWorld;
+    private static final java.util.ArrayList<greenfoot.Actor> lastSortOrder = new java.util.ArrayList<greenfoot.Actor>();
 
     /** Helper: symmetric rounding that rounds halves away from zero. */
     private static int roundAwayFromZero(double v) {
