@@ -39,7 +39,7 @@ public class Explosion extends Effect
         ArrayList<Vehicle> vehicle = (ArrayList<Vehicle>)getObjectsInRange(myDiameter/2, Vehicle.class);
         for (Vehicle v : vehicle){
             if (v instanceof FireTruck){
-                return;
+                continue;
             }
             getWorld().removeObject(v);
         }
