@@ -248,6 +248,7 @@ public class VehicleWorld extends World
             resetLanes();
             resetedLanes = true;
             actCount = -500;
+            removeObjects(getObjects(Flames.class)); // one Flames per fire cycle
             flamesAdded = false;
             fireTruckExists = false;
             animalSpawn = 1000;
