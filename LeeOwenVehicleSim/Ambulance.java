@@ -6,6 +6,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Ambulance extends Vehicle
 {
     private boolean lightsOn;
+    private boolean resetRun; //true for the two ambulances added by VehicleWorld.resetLanes
     
     public Ambulance(VehicleSpawner origin){
         super(origin); // call the superclass' constructor first
@@ -17,9 +18,25 @@ public class Ambulance extends Vehicle
         followingDistance = 8; // Ambulances need more space due to urgency
     }
 
+    //reset ambulances must stay in their lane so both lanes get cleared
+    public Ambulance stayInLane(){
+        switchedLanes = true;
+        resetRun = true;
+        return this;
+    }
+
     public void act()
     {
+        World w = getWorld();
         super.act();
+        //when the first reset ambulance leaves, the paramedics behind it heal anyone still down (e.g. stuck behind a slow vehicle)
+        if (resetRun && getWorld() == null){
+            for (Object p : w.getObjects(Pedestrian.class)){
+                if (!((Pedestrian)p).isAwake()){
+                    ((Pedestrian)p).healMe();
+                }
+            }
+        }
     }
 
     //check if a pedestrian is hit to heal them
