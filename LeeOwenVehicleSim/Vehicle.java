@@ -245,12 +245,13 @@ public abstract class Vehicle extends SuperSmoothMover
                 honk.play();
                 honked = true;
             }
-            Detector zone = new Detector(getImage().getWidth() + 50, getImage().getHeight()); //create detector that can be added
+            // detector is at most one lane tall so it never overlaps this vehicle itself
+            Detector zone = new Detector(getImage().getWidth() + 50, Math.min(getImage().getHeight(), VehicleWorld.LANE_PITCH - 20));
             if (myLaneNumber == 1 && !switchedLanes){
-                getWorld().addObject(zone, getX(), getY() + (VehicleWorld.LANE_HEIGHT + 12));
-                
+                getWorld().addObject(zone, getX(), getY() + VehicleWorld.LANE_PITCH);
+
                 if (zone.isEmpty()){
-                    setLocation(getX(), getY() + (VehicleWorld.LANE_HEIGHT + 12));
+                    setLocation(getX(), getY() + VehicleWorld.LANE_PITCH);
                     switchedLanes = true;
                     vroom.play();
                     getWorld().removeObject(zone);
@@ -258,10 +259,10 @@ public abstract class Vehicle extends SuperSmoothMover
                     getWorld().removeObject(zone);
                 }
             } else if (myLaneNumber == 2 && !switchedLanes){
-                getWorld().addObject(zone, getX(), getY() - (VehicleWorld.LANE_HEIGHT + 12));
+                getWorld().addObject(zone, getX(), getY() - VehicleWorld.LANE_PITCH);
 
                 if (zone.isEmpty()){
-                    setLocation(getX(), getY() - (VehicleWorld.LANE_HEIGHT + 12));
+                    setLocation(getX(), getY() - VehicleWorld.LANE_PITCH);
                     switchedLanes = true;
                     vroom.play();
                     getWorld().removeObject(zone);
