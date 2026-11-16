@@ -11,13 +11,17 @@ public class ExplodeAnim extends Actor
     private int actCount = 200;
     
     public ExplodeAnim(){
-        for (GreenfootImage frame : explode.getImages()) {
-            frame.scale(VehicleWorld.LANE_HEIGHT * 5, VehicleWorld.LANE_HEIGHT * 5); // scale every frame in the GIF
-        }
-        
     }
-    
-    private GifImage explode = new GifImage("explode.gif");
+
+    private static GifImage base;
+    private GifImage explode = copyOfBase(); // decode and scale once, share frames
+    private static GifImage copyOfBase() {
+        if (base == null) {
+            base = new GifImage("explode.gif");
+            for (GreenfootImage frame : base.getImages()) frame.scale(VehicleWorld.LANE_HEIGHT * 5, VehicleWorld.LANE_HEIGHT * 5);
+        }
+        return new GifImage(base);
+    }
     public void act()
     {
         actCount--;
