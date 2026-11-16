@@ -270,7 +270,7 @@ public class VehicleWorld extends World
     
     private void spawn () {
         //spawn world effect
-        if (actCount % 720 == 0 && !smoky){
+        if (!smoky){
             addObject(new Smoke(), 512, 400);
             smokeHowl.play();
             smoky = true;
