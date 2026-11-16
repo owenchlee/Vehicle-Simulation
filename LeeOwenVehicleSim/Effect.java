@@ -9,16 +9,17 @@ public class Effect extends SuperSmoothMover
     protected int actCount;
     protected int fadeTime;
     protected GreenfootImage image;
+    protected int startOpacity = 255; // opacity fadeOut starts from
     
     protected void fadeOut (int timeLeft, int totalFadeTime){
         double percent = timeLeft / (double)fadeTime;
         if (percent > 1.00){
             return;
         }
-        int newTransparency = (int)(percent * 255);
+        int newTransparency = (int)(percent * startOpacity);
         image.setTransparency (newTransparency);
     }
-    
+
     protected void fadeIn (int timeLeft, int totalFadeTime){
         double percent = timeLeft / (double)totalFadeTime;
         if (percent > 1.00){
