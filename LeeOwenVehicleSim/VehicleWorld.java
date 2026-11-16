@@ -185,12 +185,11 @@ public class VehicleWorld extends World
         spawnSmoker();
         
         //Check if first smoker went into the forest
-        ArrayList<Smoker> smokers = (ArrayList<Smoker>) getObjects(Smoker.class);
-        
-        if (!smokers.isEmpty())
+        // (only matters while not already on fire, so skip the scan otherwise)
+        if (!onFire)
         {
-            Smoker s = smokers.get(0);
-            if (s.getY() < 205) 
+            ArrayList<Smoker> smokers = (ArrayList<Smoker>) getObjects(Smoker.class);
+            if (!smokers.isEmpty() && smokers.get(0).getY() < 205)
             {
                 onFire = true;
             }
