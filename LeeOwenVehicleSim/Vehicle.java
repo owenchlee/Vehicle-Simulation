@@ -47,11 +47,6 @@ public abstract class Vehicle extends SuperSmoothMover
             // Reverse the image so it appears correct when moving the opposite direction
             getImage().mirrorHorizontally();
         }
-        // If speed modifiers were set for lanes, this will change the max speed
-        // accordingly. If speed modifiers are not set, this multiplies by 1.0 (as in,
-        // does nothing).
-        maxSpeed *= origin.getSpeedModifier();
-        speed = maxSpeed;
 
         isNew = true; // this boolean serves to make sure this Vehicle is only placed in 
         // it's starting position once. Vehicles are removed and re-added
@@ -106,6 +101,9 @@ public abstract class Vehicle extends SuperSmoothMover
     public void addedToWorld (World w){
         if (isNew){
             setLocation (origin.getX() - (direction * 100), origin.getY() - yOffset);
+            // subclass constructors set maxSpeed after super(), so apply the lane modifier here
+            maxSpeed *= origin.getSpeedModifier();
+            speed = maxSpeed;
             isNew = false;
         }
     }
